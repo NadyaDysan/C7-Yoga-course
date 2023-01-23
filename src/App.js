@@ -1,8 +1,9 @@
-// import React from 'react';
 import Navigation from './Navigation';
 import Sidebar from './Sidebar';
 import Player from './Player';
 import Centerblock from './Centerblock';
+
+import './App.css'
 
 
 function App() {
