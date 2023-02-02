@@ -12,12 +12,9 @@ function App() {
         <main className="main">
           <Navigation />
           <Centerblock />
+          <Player />
         </main>
-
         <Sidebar />
-        <Player />
-
-        <footer className="footer" />
       </div>
     </div>
   )
