@@ -1,7 +1,7 @@
-import Navigation from './Navigation'
-import Sidebar from './Sidebar'
-import Player from './Player'
-import Centerblock from './Centerblock'
+import Navigation from './Navigation/Navigation'
+import Sidebar from './Sidebar/Sidebar'
+import Player from './Player/Player'
+import Centerblock from './Centerblock/Centerblock'
 
 import './App.css'
 
