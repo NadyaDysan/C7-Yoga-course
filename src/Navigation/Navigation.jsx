@@ -1,4 +1,4 @@
-const { useState } = React;
+import React, { useState } from 'react';
 
 export default function Navigation() {
 
@@ -17,7 +17,7 @@ export default function Navigation() {
                           <span className="burger__line" />
                           <span className="burger__line" />
                       </div>
-                      {visible && (
+                      {navBurgerOpen && (
                       <div className="nav__menu menu">
                           <ul className="menu__list">
                               <li className="menu__item"><a href="http://" className="menu__link">Главное</a></li>

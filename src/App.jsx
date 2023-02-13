@@ -1,4 +1,4 @@
-import Navigation from './Navigation/Navigation'
+// import Navigation from './Navigation/Navigation'
 import Sidebar from './Sidebar/Sidebar'
 import Player from './Player/Player'
 import Centerblock from './Centerblock/Centerblock'
@@ -10,7 +10,7 @@ function App() {
     <div className="wrapper">
       <div className="container">
         <main className="main">
-          <Navigation />
+          {/* <Navigation /> */}
           <Centerblock />
           <Player />
         </main>
