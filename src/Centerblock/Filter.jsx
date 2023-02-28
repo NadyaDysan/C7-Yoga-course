@@ -4,7 +4,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 const singers = [
   {
@@ -29,10 +29,6 @@ const singers = [
   },
 ]
 
-// onChange = (item, name) => {
-//   ...
-// }
-
 export default function Filter() {
   return (
     <div className="centerblock__filter filter">
@@ -41,7 +37,7 @@ export default function Filter() {
         name="singer"
         title="исполнителю"
         list={singers}
-        // onChange={this.onChange}
+        // onChange
         searchable={["Искать по исполнителю", "Нет результатов"]}
       />
       
@@ -53,47 +49,35 @@ export default function Filter() {
   )
 }
 
-class DropdownFilter extends Component {
-  constructor(props) {
-    super(props)
-    const { title, list } = this.props
+function DropdownFilter(props) {
 
-    this.state = {
-      isListOpen: false,
-      title,
-      keyword: '',
-      selectedItems: [],
-      list,
-    }
+  const { id, searchable, styles } = props
+    const [isListOpen, setListOpen] = useState(false);
+    const [title, setTitle] = useState('');
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [keyword, setKeyword] = useState('');
 
-    this.searchField = React.createRef()
-  }
+    const { wrapper, header, headerTitle, list, listSearchBar, scrollList } =
+      styles
 
-  componentDidMount() {
-    const { select } = this.props
+  useEffect(()=>{
+    const { select } = props
 
     if (select.length) {
-      this.selectMultipleItems(select)
-    }
-  }
+      selectMultipleItems(select)
+    };
 
-  componentDidUpdate() {
-    const { isListOpen } = this.state
-
-    setTimeout(() => {
+        return window.removeEventListener('click', close);
+    
       if (isListOpen) {
-        window.addEventListener('click', this.close)
+        window.addEventListener('click', close)
       } else {
-        window.removeEventListener('click', this.close)
+        window.removeEventListener('click', close)
       }
-    }, 0)
-  }
+   
+    });
 
-  componentWillUnmount() {
-    window.removeEventListener('click', this.close)
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
+  const getDerivedStateFromProps = (nextProps, prevState) => {
     const { list } = nextProps
 
     if (JSON.stringify(list) !== JSON.stringify(prevState.list)) {
@@ -103,139 +87,117 @@ class DropdownFilter extends Component {
     return null
   }
 
-  close = () => {
-    this.setState({
-      isListOpen: false,
-    })
+  const close = () => {
+    setListOpen(false);
   }
 
-  selectAll = () => {
-    const { name, onChange } = this.props
+  const selectAll = () => {
+    const { name, onChange } = props
 
-    this.setState(
+    setListOpen(
       (prevState) => ({
         selectedItems: prevState.list,
       }),
       () => {
-        this.handleTitle()
-        onChange(this.state.selectedItems, name)
+        handleTitle()
+        onChange(selectedItems, name)
       }
     )
-  }
+  }}
 
-  deselectAll = () => {
-    const { name, onChange } = this.props
+  const deselectAll = () => {
+    const { name, onChange } = props
 
-    this.setState(
-      {
-        selectedItems: [],
-      },
+    setSelectedItems(
+        [],
       () => {
-        this.handleTitle()
-        onChange(this.state.selectedItems, name)
+        handleTitle()
+        onChange(selectedItems, name)
       }
     )
   }
 
   selectMultipleItems = (items) => {
-    const { list } = this.state
+    const { list } = state
 
     items.forEach((item) => {
       const selectedItem = list.find((i) => i.value === item.value)
       setTimeout(() => {
-        this.selectItem(selectedItem, true)
+        selectItem(selectedItem, true)
       })
     })
   }
 
   selectItem = (item, noCloseOnSelection = false) => {
-    const { closeOnSelection } = this.props
+    const { closeOnSelection } = props
 
-    this.setState(
-      {
-        isListOpen: (!noCloseOnSelection && !closeOnSelection) || false,
-      },
-      () => this.handleSelection(item, this.state.selectedItems)
+    setListOpen(
+      (!noCloseOnSelection && !closeOnSelection) || false,
+      () => handleSelection(item, selectedItems)
     )
   }
 
   handleSelection = (item, selectedItems) => {
-    const { name, onChange } = this.props
+    const { name, onChange } = props
 
     const index = selectedItems.findIndex((i) => i.value === item.value)
 
     if (index !== -1) {
       const selectedItemsCopy = [...selectedItems]
       selectedItemsCopy.splice(index, 1)
-      this.setState(
-        () => ({
-          selectedItems: selectedItemsCopy,
-        }),
+      setSelectedItems(
+        () => (selectedItemsCopy),
         () => {
-          onChange(this.state.selectedItems, name)
-          this.handleTitle()
+          onChange(selectedItems, name)
+          handleTitle()
         }
       )
     } else {
-      this.setState(
-        (prevState) => ({
-          selectedItems: [...prevState.selectedItems, item],
-        }),
+      setSelectedItems(
+        (prevState) => ([...prevState.selectedItems, item]),
         () => {
-          onChange(this.state.selectedItems, name)
-          this.handleTitle()
+          onChange(selectedItems, name)
+          handleTitle()
         }
       )
     }
   }
 
-  handleTitle = () => {
-    const { selectedItems } = this.state
-    const { title } = this.props
+  const handleTitle = () => {
+    const { selectedItems } = state
+    const { title } = props
 
     const { length } = selectedItems
 
     if (!length) {
-      this.setState({
-        title,
-      })
+      setTitle(title)
     } else if (length === 1) {
-      this.setState({
-        title: `${title} ${length}`,
-      })
+      setTitle(`${title} ${length}`)
     } else {
-      this.setState({
-        title: `${title} ${length}`,
-      })
+      setTitle(`${title} ${length}`)
     }
   }
 
-  toggleList = () => {
-    this.setState(
-      (prevState) => ({
-        isListOpen: !prevState.isListOpen,
-      }),
+  const toggleList = () => {
+    setListOpen(
+      (prevState) => (!prevState.isListOpen),
       () => {
-        if (this.state.isListOpen && this.searchField.current) {
-          this.searchField.current.focus()
-          this.setState({
-            keyword: '',
-          })
+        if (isListOpen && searchField.current) {
+          searchField.current.focus()
+          setKeyword('')
         }
       }
     )
   }
 
   filterList = (e) => {
-    this.setState({
-      keyword: e.target.value.toLowerCase(),
-    })
+    setKeyword(e.target.value.toLowerCase())
   }
 
-  listItems = () => {
-    const { id, searchable, styles } = this.props
+  const listItems = () => {
+    const { id, searchable, styles } = props
     const { listItem, listItemNoResult } = styles
-    const { keyword, list, selectedItems } = this.state
+    const { keyword, list, selectedItems } = state
     let tempList = [...list]
 
     if (keyword.length) {
@@ -251,7 +213,7 @@ class DropdownFilter extends Component {
           className={`dd-list-item ${id}`}
           style={listItem}
           key={item.value}
-          onClick={() => this.selectItem(item)}
+          onClick={() => selectItem(item)}
         >
           {item.label}{' '}
           {
@@ -270,13 +232,7 @@ class DropdownFilter extends Component {
       </div>
     )
   }
-
-  render() {
-    const { id, searchable, styles } = this.props
-    const { isListOpen, title } = this.state
-
-    const { wrapper, header, headerTitle, list, listSearchBar, scrollList } =
-      styles
+   
 
     return (
       <div className={`dd-wrapper ${id}`} style={wrapper}>
@@ -284,7 +240,7 @@ class DropdownFilter extends Component {
           type="button"
           className={`dd-header ${id}`}
           style={header}
-          onClick={this.toggleList}
+          onClick={toggleList}
         >
           <div className={`dd-header-title ${id}`} style={headerTitle}>
             {title}
@@ -303,22 +259,22 @@ class DropdownFilter extends Component {
           >
             {searchable && (
               <input
-                ref={this.searchField}
+                ref={searchField}
                 className={`dd-list-search-bar ${id}`}
                 style={listSearchBar}
                 placeholder={searchable[0]}
-                onChange={(e) => this.filterList(e)}
+                onChange={(e) => filterList(e)}
               />
             )}
             <div className={`dd-scroll-list ${id}`} style={scrollList}>
-              {this.listItems()}
+              {listItems()}
             </div>
           </div>
         )}
       </div>
     )
-  }
-}
+
+
 
 DropdownFilter.defaultProps = {
   id: '',
