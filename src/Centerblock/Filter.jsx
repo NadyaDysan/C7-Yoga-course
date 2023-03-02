@@ -4,7 +4,8 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect, useRef } from 'react'
 
 const singers = [
   {
@@ -37,136 +38,26 @@ export default function Filter() {
         name="singer"
         title="исполнителю"
         list={singers}
-        // onChange
-        searchable={["Искать по исполнителю", "Нет результатов"]}
+        onChange
+        searchable={['Искать по исполнителю', 'Нет результатов']}
       />
-      
-      <div className="filter__button button-year _btn-text">
-        году выпуска
-      </div>
+
+      <div className="filter__button button-year _btn-text">году выпуска</div>
       <button className="filter__button button-genre _btn-text">жанру</button>
     </div>
   )
 }
 
-function DropdownFilter(props) {
+function DropdownFilter({ id, searchable, styles }) {
+  const [isListOpen, setListOpen] = useState(false)
+  const [title, setTitle] = useState('')
+  const [selectedItems, setSelectedItems] = useState([])
+  const [keyword, setKeyword] = useState('')
+  const searchField = useRef(null)
 
-  const { id, searchable, styles } = props
-    const [isListOpen, setListOpen] = useState(false);
-    const [title, setTitle] = useState('');
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [keyword, setKeyword] = useState('');
-
-    const { wrapper, header, headerTitle, list, listSearchBar, scrollList } =
-      styles
-
-  useEffect(()=>{
-    const { select } = props
-
-    if (select.length) {
-      selectMultipleItems(select)
-    };
-
-        return window.removeEventListener('click', close);
-    
-      if (isListOpen) {
-        window.addEventListener('click', close)
-      } else {
-        window.removeEventListener('click', close)
-      }
-   
-    });
-
-  const getDerivedStateFromProps = (nextProps, prevState) => {
-    const { list } = nextProps
-
-    if (JSON.stringify(list) !== JSON.stringify(prevState.list)) {
-      return { list }
-    }
-
-    return null
-  }
-
-  const close = () => {
-    setListOpen(false);
-  }
-
-  const selectAll = () => {
-    const { name, onChange } = props
-
-    setListOpen(
-      (prevState) => ({
-        selectedItems: prevState.list,
-      }),
-      () => {
-        handleTitle()
-        onChange(selectedItems, name)
-      }
-    )
-  }}
-
-  const deselectAll = () => {
-    const { name, onChange } = props
-
-    setSelectedItems(
-        [],
-      () => {
-        handleTitle()
-        onChange(selectedItems, name)
-      }
-    )
-  }
-
-  selectMultipleItems = (items) => {
-    const { list } = state
-
-    items.forEach((item) => {
-      const selectedItem = list.find((i) => i.value === item.value)
-      setTimeout(() => {
-        selectItem(selectedItem, true)
-      })
-    })
-  }
-
-  selectItem = (item, noCloseOnSelection = false) => {
-    const { closeOnSelection } = props
-
-    setListOpen(
-      (!noCloseOnSelection && !closeOnSelection) || false,
-      () => handleSelection(item, selectedItems)
-    )
-  }
-
-  handleSelection = (item, selectedItems) => {
-    const { name, onChange } = props
-
-    const index = selectedItems.findIndex((i) => i.value === item.value)
-
-    if (index !== -1) {
-      const selectedItemsCopy = [...selectedItems]
-      selectedItemsCopy.splice(index, 1)
-      setSelectedItems(
-        () => (selectedItemsCopy),
-        () => {
-          onChange(selectedItems, name)
-          handleTitle()
-        }
-      )
-    } else {
-      setSelectedItems(
-        (prevState) => ([...prevState.selectedItems, item]),
-        () => {
-          onChange(selectedItems, name)
-          handleTitle()
-        }
-      )
-    }
-  }
-
+  const { wrapper, header, headerTitle, list, listSearchBar, scrollList } =
+    styles
   const handleTitle = () => {
-    const { selectedItems } = state
-    const { title } = props
-
     const { length } = selectedItems
 
     if (!length) {
@@ -178,9 +69,100 @@ function DropdownFilter(props) {
     }
   }
 
-  const toggleList = () => {
+  const handleSelection = ({ item, name, onChange }) => {
+    const index = selectedItems.findIndex((i) => i.value === item.value)
+
+    if (index !== -1) {
+      const selectedItemsCopy = [...selectedItems]
+      selectedItemsCopy.splice(index, 1)
+      setSelectedItems(
+        () => selectedItemsCopy,
+        () => {
+          onChange(selectedItems, name)
+          handleTitle()
+        }
+      )
+    } else {
+      setSelectedItems(
+        (prevState) => [...prevState.selectedItems, item],
+        () => {
+          onChange(selectedItems, name)
+          handleTitle()
+        }
+      )
+    }
+  }
+
+  const selectItem = (item, closeOnSelection, noCloseOnSelection = false) => {
+    setListOpen((!noCloseOnSelection && !closeOnSelection) || false, () =>
+      handleSelection(item, selectedItems)
+    )
+  }
+  const selectMultipleItems = (items) => {
+    items.forEach((item) => {
+      const selectedItem = list.find((i) => i.value === item.value)
+      setTimeout(() => {
+        selectItem(selectedItem, true)
+      })
+    })
+  }
+
+  const close = () => {
+    setListOpen(false)
+  }
+
+  useEffect(
+    (select) => {
+      if (select.length) {
+        selectMultipleItems(select)
+      }
+
+      return window.removeEventListener('click', close)
+
+      // if (isListOpen) {
+      //   window.addEventListener('click', close)
+      // } else {
+      //   window.removeEventListener('click', close)
+      // }
+    },
+    [isListOpen]
+  )
+
+  // const getDerivedStateFromProps = (nextProps, prevState) => {
+  //   const { list } = nextProps
+
+  //   if (JSON.stringify(list) !== JSON.stringify(prevState.list)) {
+  //     return { list }
+  //   }
+
+  //   return null
+  // }
+
+  const selectAll = (name, onChange) => {
     setListOpen(
-      (prevState) => (!prevState.isListOpen),
+      (prevState) => ({
+        selectedItems: prevState.list,
+      }),
+      () => {
+        handleTitle()
+        onChange(selectedItems, name)
+      }
+    )
+  }
+  selectAll()
+
+  const deselectAll = (name, onChange) => {
+    setSelectedItems([], () => {
+      handleTitle()
+      onChange(selectedItems, name)
+    })
+  }
+  deselectAll()
+
+  const toggleList = () => {
+    searchField.current.focus()
+    setListOpen(
+      (prevState) => !prevState.isListOpen,
       () => {
         if (isListOpen && searchField.current) {
           searchField.current.focus()
@@ -190,14 +172,12 @@ function DropdownFilter(props) {
     )
   }
 
-  filterList = (e) => {
+  const filterList = (e) => {
     setKeyword(e.target.value.toLowerCase())
   }
 
   const listItems = () => {
-    const { id, searchable, styles } = props
     const { listItem, listItemNoResult } = styles
-    const { keyword, list, selectedItems } = state
     let tempList = [...list]
 
     if (keyword.length) {
@@ -232,49 +212,47 @@ function DropdownFilter(props) {
       </div>
     )
   }
-   
 
-    return (
-      <div className={`dd-wrapper ${id}`} style={wrapper}>
-        <button
-          type="button"
-          className={`dd-header ${id}`}
-          style={header}
-          onClick={toggleList}
-        >
-          <div className={`dd-header-title ${id}`} style={headerTitle}>
-            {title}
-          </div>
-          {/* {isListOpen
+  return (
+    <div className={`dd-wrapper ${id}`} style={wrapper}>
+      <button
+        type="button"
+        className={`dd-header ${id}`}
+        style={header}
+        onClick={toggleList}
+      >
+        <div className={`dd-header-title ${id}`} style={headerTitle}>
+          {title}
+        </div>
+        {/* {isListOpen
             ? <button style={color: "#9A48F1"}></button>
             : <button style={color: "#FFFFFF"}></button>} */}
-        </button>
-        {isListOpen && (
-          <div
-            role="list"
-            type="button"
-            className={`dd-list ${searchable ? ' searchable' : ''} ${id}`}
-            style={list}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {searchable && (
-              <input
-                ref={searchField}
-                className={`dd-list-search-bar ${id}`}
-                style={listSearchBar}
-                placeholder={searchable[0]}
-                onChange={(e) => filterList(e)}
-              />
-            )}
-            <div className={`dd-scroll-list ${id}`} style={scrollList}>
-              {listItems()}
-            </div>
+      </button>
+      {isListOpen && (
+        <div
+          role="list"
+          type="button"
+          className={`dd-list ${searchable ? ' searchable' : ''} ${id}`}
+          style={list}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {searchable && (
+            <input
+              ref={searchField}
+              className={`dd-list-search-bar ${id}`}
+              style={listSearchBar}
+              placeholder={searchable[0]}
+              onChange={(e) => filterList(e)}
+            />
+          )}
+          <div className={`dd-scroll-list ${id}`} style={scrollList}>
+            {listItems()}
           </div>
-        )}
-      </div>
-    )
-
-
+        </div>
+      )}
+    </div>
+  )
+}
 
 DropdownFilter.defaultProps = {
   id: '',
@@ -284,4 +262,3 @@ DropdownFilter.defaultProps = {
   searchable: undefined,
   styles: {},
 }
-
