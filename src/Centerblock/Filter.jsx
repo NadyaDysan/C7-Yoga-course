@@ -38,7 +38,7 @@ export default function Filter() {
         name="singer"
         title="исполнителю"
         list={singers}
-        onChange
+        onChange={this.onChange}
         searchable={['Искать по исполнителю', 'Нет результатов']}
       />
 
@@ -111,53 +111,38 @@ function DropdownFilter({ id, searchable, styles }) {
     setListOpen(false)
   }
 
-  useEffect(
-    (select) => {
-      if (select.length) {
-        selectMultipleItems(select)
-      }
-
-      return window.removeEventListener('click', close)
-
-      // if (isListOpen) {
-      //   window.addEventListener('click', close)
-      // } else {
-      //   window.removeEventListener('click', close)
-      // }
-    },
+  useEffect(() => {
+      
+      if (isListOpen.select.length) {
+        selectMultipleItems(isListOpen.select)
+      };
+    
+      return () => window.removeEventListener('click', close) ;
+       },
     [isListOpen]
   )
 
-  // const getDerivedStateFromProps = (nextProps, prevState) => {
-  //   const { list } = nextProps
 
-  //   if (JSON.stringify(list) !== JSON.stringify(prevState.list)) {
-  //     return { list }
-  //   }
-
-  //   return null
+  // const selectAll = (name, onChange) => {
+  //   setListOpen(
+  //     (prevState) => ({
+  //       selectedItems: prevState.list,
+  //     }),
+  //     () => {
+  //       handleTitle()
+  //       onChange(selectedItems, name)
+  //     }
+  //   )
   // }
+  // selectAll()
 
-  const selectAll = (name, onChange) => {
-    setListOpen(
-      (prevState) => ({
-        selectedItems: prevState.list,
-      }),
-      () => {
-        handleTitle()
-        onChange(selectedItems, name)
-      }
-    )
-  }
-  selectAll()
-
-  const deselectAll = (name, onChange) => {
-    setSelectedItems([], () => {
-      handleTitle()
-      onChange(selectedItems, name)
-    })
-  }
-  deselectAll()
+  // const deselectAll = (name, onChange) => {
+  //   setSelectedItems([], () => {
+  //     handleTitle()
+  //     onChange(selectedItems, name)
+  //   })
+  // }
+  // deselectAll()
 
   const toggleList = () => {
     searchField.current.focus()
