@@ -1,11 +1,7 @@
 /* eslint-disable react/button-has-type */
-/* eslint-disable react/no-this-in-sfc */
-/* eslint-disable react/no-unused-class-component-methods */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+import './Filter.css'
 
 const singers = [
   {
@@ -28,222 +24,191 @@ const singers = [
     label: 'Arctic Monkeys',
     value: 'arcticMonkeys',
   },
+  {
+    label: 'Queen',
+    value: 'queen',
+  },
+  {
+    label: 'Aurora',
+    value: 'aurora',
+  },
+]
+
+const genres = [
+  {
+    label: 'Рок',
+    value: 'rock',
+  },
+  {
+    label: 'Хип-хоп',
+    value: 'hip-Hop',
+  },
+  {
+    label: 'Поп музыка',
+    value: 'pop',
+  },
+  {
+    label: 'Техно',
+    value: 'techno',
+  },
+  {
+    label: 'Инди',
+    value: 'indi',
+  },
+  {
+    label: 'Классическая',
+    value: 'classic',
+  },
+]
+
+const years = [
+  {
+    label: 'Более новые',
+    value: 'newer',
+  },
+  {
+    label: 'Более старые',
+    value: 'older',
+  },
 ]
 
 export default function Filter() {
   return (
     <div className="centerblock__filter filter">
       <div className="filter__title">Искать по:</div>
-      <DropdownFilter
-        name="singer"
-        title="исполнителю"
-        list={singers}
-        onChange={this.onChange}
-        searchable={['Искать по исполнителю', 'Нет результатов']}
-      />
-
-      <div className="filter__button button-year _btn-text">году выпуска</div>
-      <button className="filter__button button-genre _btn-text">жанру</button>
+      <DropdownFilter title="исполнителю" list={singers} name="singer" />
+      <RadioFilter title="году выпуска" list={years} name="year" />
+      <DropdownFilter title="жанру" list={genres} name="genre" />
     </div>
   )
 }
 
-function DropdownFilter({ id, searchable, styles }) {
-  const [isListOpen, setListOpen] = useState(false)
-  const [title, setTitle] = useState('')
-  const [selectedItems, setSelectedItems] = useState([])
-  const [keyword, setKeyword] = useState('')
-  const searchField = useRef(null)
 
-  const { wrapper, header, headerTitle, list, listSearchBar, scrollList } =
-    styles
-  const handleTitle = () => {
-    const { length } = selectedItems
+function DropdownFilter(props) {
+  const [isDropdownDisplayed, setIsDropdownDisplayed] = useState(false)
+  const [selectedFilterItems, setSelectedFilterItems] = useState(
+    props.list.reduce((obj, name) => ({ ...obj, [name.value]: false }), {})
+  )
 
-    if (!length) {
-      setTitle(title)
-    } else if (length === 1) {
-      setTitle(`${title} ${length}`)
-    } else {
-      setTitle(`${title} ${length}`)
-    }
-  }
+  const numberOfFilterItemsSelected =
+    Object.values(selectedFilterItems).filter(Boolean).length
 
-  const handleSelection = ({ item, name, onChange }) => {
-    const index = selectedItems.findIndex((i) => i.value === item.value)
+  console.log('selectedFilterItems', selectedFilterItems)
 
-    if (index !== -1) {
-      const selectedItemsCopy = [...selectedItems]
-      selectedItemsCopy.splice(index, 1)
-      setSelectedItems(
-        () => selectedItemsCopy,
-        () => {
-          onChange(selectedItems, name)
-          handleTitle()
-        }
-      )
-    } else {
-      setSelectedItems(
-        (prevState) => [...prevState.selectedItems, item],
-        () => {
-          onChange(selectedItems, name)
-          handleTitle()
-        }
-      )
-    }
-  }
-
-  const selectItem = (item, closeOnSelection, noCloseOnSelection = false) => {
-    setListOpen((!noCloseOnSelection && !closeOnSelection) || false, () =>
-      handleSelection(item, selectedItems)
-    )
-  }
-  const selectMultipleItems = (items) => {
-    items.forEach((item) => {
-      const selectedItem = list.find((i) => i.value === item.value)
-      setTimeout(() => {
-        selectItem(selectedItem, true)
-      })
-    })
-  }
-
-  const close = () => {
-    setListOpen(false)
-  }
+  const menuRef = useRef();
 
   useEffect(() => {
-      
-      if (isListOpen.select.length) {
-        selectMultipleItems(isListOpen.select)
-      };
-    
-      return () => window.removeEventListener('click', close) ;
-       },
-    [isListOpen]
-  )
-
-
-  // const selectAll = (name, onChange) => {
-  //   setListOpen(
-  //     (prevState) => ({
-  //       selectedItems: prevState.list,
-  //     }),
-  //     () => {
-  //       handleTitle()
-  //       onChange(selectedItems, name)
-  //     }
-  //   )
-  // }
-  // selectAll()
-
-  // const deselectAll = (name, onChange) => {
-  //   setSelectedItems([], () => {
-  //     handleTitle()
-  //     onChange(selectedItems, name)
-  //   })
-  // }
-  // deselectAll()
-
-  const toggleList = () => {
-    searchField.current.focus()
-    setListOpen(
-      (prevState) => !prevState.isListOpen,
-      () => {
-        if (isListOpen && searchField.current) {
-          searchField.current.focus()
-          setKeyword('')
-        }
+    const closeFilter = (e) =>{
+      if (!menuRef.current.contains(e.target)) {
+        setIsDropdownDisplayed(false);
       }
-    )
-  }
+    };
+    document.addEventListener("mousedown", closeFilter);
+    return () => document.removeEventListener("mousedown", closeFilter);
+  }, [])
 
-  const filterList = (e) => {
-    setKeyword(e.target.value.toLowerCase())
-  }
-
-  const listItems = () => {
-    const { listItem, listItemNoResult } = styles
-    let tempList = [...list]
-
-    if (keyword.length) {
-      tempList = list.filter((item) =>
-        item.label.toLowerCase().includes(keyword.toLowerCase())
-      )
-    }
-
-    if (tempList.length) {
-      return tempList.map((item) => (
-        <button
-          type="button"
-          className={`dd-list-item ${id}`}
-          style={listItem}
-          key={item.value}
-          onClick={() => selectItem(item)}
-        >
-          {item.label}{' '}
-          {
-            selectedItems.some((i) => i.value === item.value)
-            // &&
-            // (<button style={color: "B672FF"; textDecorationLine: 'underline'}>
-            // </button>)
-          }
-        </button>
-      ))
-    }
-
-    return (
-      <div className={`dd-list-item no-result ${id}`} style={listItemNoResult}>
-        {searchable[1]}
-      </div>
-    )
-  }
-
+  
   return (
-    <div className={`dd-wrapper ${id}`} style={wrapper}>
+    <fieldset className="filter_dropdown" ref={menuRef}>
       <button
-        type="button"
-        className={`dd-header ${id}`}
-        style={header}
-        onClick={toggleList}
+        className="filter__button _btn-text"
+        onClick={() => setIsDropdownDisplayed((prevState) => !prevState)}
       >
-        <div className={`dd-header-title ${id}`} style={headerTitle}>
-          {title}
-        </div>
-        {/* {isListOpen
-            ? <button style={color: "#9A48F1"}></button>
-            : <button style={color: "#FFFFFF"}></button>} */}
+        {numberOfFilterItemsSelected > 0
+          ? `${props.title} ${numberOfFilterItemsSelected}`
+          : `${props.title}`}
       </button>
-      {isListOpen && (
-        <div
-          role="list"
-          type="button"
-          className={`dd-list ${searchable ? ' searchable' : ''} ${id}`}
-          style={list}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {searchable && (
-            <input
-              ref={searchField}
-              className={`dd-list-search-bar ${id}`}
-              style={listSearchBar}
-              placeholder={searchable[0]}
-              onChange={(e) => filterList(e)}
-            />
-          )}
-          <div className={`dd-scroll-list ${id}`} style={scrollList}>
-            {listItems()}
-          </div>
+      {isDropdownDisplayed && (
+        <div className="filter_panel">
+          {props.list.map((name) => (
+            <fieldset
+              key={name.value}
+              className={
+                selectedFilterItems[name.value]
+                  ? `selected filter_panel_items`
+                  : 'filter_panel_items'
+              }
+            >
+              <input
+                onChange={(e) =>
+                  setSelectedFilterItems({
+                    ...selectedFilterItems,
+                    [name.value]: e.target.checked,
+                  })
+                }
+                id={`input-${name.value}`}
+                type="checkbox"
+                checked={selectedFilterItems[name.value]}
+              />
+              <label className="filter_label" htmlFor={`input-${name.value}`}>
+                {name.label}
+              </label>
+            </fieldset>
+          ))}
         </div>
       )}
-    </div>
+    </fieldset>
   )
 }
 
-DropdownFilter.defaultProps = {
-  id: '',
-  select: [],
-  closeOnSelection: false,
-  titlePlural: undefined,
-  searchable: undefined,
-  styles: {},
+function RadioFilter(props) {
+  const [isRadioDisplayed, setIsRadioDisplayed] = useState(false)
+  const [selectedFilterItems, setSelectedFilterItems] = useState(
+    props.list.reduce((obj, name) => ({ ...obj, [name.value]: false }), {})
+  )
+
+  console.log('selectedFilterItems', selectedFilterItems)
+
+  const menuRef = useRef();
+
+  useEffect(() => {
+    const closeFilter = (e) =>{
+      if (!menuRef.current.contains(e.target)) {
+        setIsRadioDisplayed(false);
+      }
+    };
+    document.addEventListener("mousedown", closeFilter);
+    return () => document.removeEventListener("mousedown", closeFilter);
+  }, [])
+
+  return (
+    <fieldset className="filter_radio_main_fieldset" ref={menuRef}>
+      <button
+        className="filter__button button-year _btn-text button_radio_filter"
+        onClick={() => setIsRadioDisplayed((prevState) => !prevState)}
+      >
+        {props.title}
+      </button>
+      {isRadioDisplayed && (
+        <div className="filter_radio_panel">
+          {props.list.map((name) => (
+            <fieldset
+              key={name.value}
+              className={
+                selectedFilterItems[name.value]
+                  ? `selected filter_panel_items`
+                  : 'filter_panel_items'
+              }
+            >
+              <input
+                onChange={(e) =>
+                  setSelectedFilterItems({
+                    [name.value]: e.target.checked,
+                  })
+                }
+                id={`input-${name.value}`}
+                type="radio"
+                checked={selectedFilterItems[name.value]}
+                key={name.value}
+                className="filter_radio_input"
+              />
+              <label className="filter_radio_label" htmlFor={`input-${name.value}`}>
+                {name.label}
+              </label>
+            </fieldset>
+          ))}
+        </div>
+      )}
+    </fieldset>
+  )
 }
