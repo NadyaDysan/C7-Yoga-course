@@ -45,7 +45,31 @@
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: auto;
+    font-size: 18px;
 }
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 300px #4B4949;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 32px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #fff;
+}
+
+::-webkit-scrollbar-corner {
+    padding: 10px;
+}
+
 
 .filter_panel_items {
     border: none;
@@ -82,24 +106,4 @@ input[type="checkbox"] {
     margin-right: 6px;
     cursor: pointer;
     cursor: pointer;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 300px #4B4949;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: #fff;
-}
-
-::-webkit-scrollbar-corner {
-    padding: 10px;
 }

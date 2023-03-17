@@ -93,7 +93,7 @@ function DropdownFilter(props) {
   const numberOfFilterItemsSelected =
     Object.values(selectedFilterItems).filter(Boolean).length
 
-  console.log('selectedFilterItems', selectedFilterItems)
+  // console.log('selectedFilterItems', selectedFilterItems)
 
   const menuRef = useRef();
 
@@ -144,6 +144,7 @@ function DropdownFilter(props) {
                 {name.label}
               </label>
             </fieldset>
+          
           ))}
         </div>
       )}
@@ -157,7 +158,7 @@ function RadioFilter(props) {
     props.list.reduce((obj, name) => ({ ...obj, [name.value]: false }), {})
   )
 
-  console.log('selectedFilterItems', selectedFilterItems)
+  // console.log('selectedFilterItems', selectedFilterItems)
 
   const menuRef = useRef();
 
@@ -197,6 +198,7 @@ function RadioFilter(props) {
                   })
                 }
                 id={`input-${name.value}`}
+                value={`radio-${name.value}`}
                 type="radio"
                 checked={selectedFilterItems[name.value]}
                 key={name.value}
