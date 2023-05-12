@@ -83,7 +83,6 @@ export default function Filter() {
   )
 }
 
-
 function DropdownFilter(props) {
   const [isDropdownDisplayed, setIsDropdownDisplayed] = useState(false)
   const [selectedFilterItems, setSelectedFilterItems] = useState(
@@ -95,19 +94,18 @@ function DropdownFilter(props) {
 
   // console.log('selectedFilterItems', selectedFilterItems)
 
-  const menuRef = useRef();
+  const menuRef = useRef()
 
   useEffect(() => {
-    const closeFilter = (e) =>{
+    const closeFilter = (e) => {
       if (!menuRef.current.contains(e.target)) {
-        setIsDropdownDisplayed(false);
+        setIsDropdownDisplayed(false)
       }
-    };
-    document.addEventListener("mousedown", closeFilter);
-    return () => document.removeEventListener("mousedown", closeFilter);
+    }
+    document.addEventListener('mousedown', closeFilter)
+    return () => document.removeEventListener('mousedown', closeFilter)
   }, [])
 
-  
   return (
     <fieldset className="filter_dropdown" ref={menuRef}>
       <button
@@ -119,33 +117,34 @@ function DropdownFilter(props) {
           : `${props.title}`}
       </button>
       {isDropdownDisplayed && (
-        <div className="filter_panel">
-          {props.list.map((name) => (
-            <fieldset
-              key={name.value}
-              className={
-                selectedFilterItems[name.value]
-                  ? `selected filter_panel_items`
-                  : 'filter_panel_items'
-              }
-            >
-              <input
-                onChange={(e) =>
-                  setSelectedFilterItems({
-                    ...selectedFilterItems,
-                    [name.value]: e.target.checked,
-                  })
+        <div className="filter_panel_wrapper">
+          <div className="filter_panel">
+            {props.list.map((name) => (
+              <fieldset
+                key={name.value}
+                className={
+                  selectedFilterItems[name.value]
+                    ? `selected filter_panel_items`
+                    : 'filter_panel_items'
                 }
-                id={`input-${name.value}`}
-                type="checkbox"
-                checked={selectedFilterItems[name.value]}
-              />
-              <label className="filter_label" htmlFor={`input-${name.value}`}>
-                {name.label}
-              </label>
-            </fieldset>
-          
-          ))}
+              >
+                <input
+                  onChange={(e) =>
+                    setSelectedFilterItems({
+                      ...selectedFilterItems,
+                      [name.value]: e.target.checked,
+                    })
+                  }
+                  id={`input-${name.value}`}
+                  type="checkbox"
+                  checked={selectedFilterItems[name.value]}
+                />
+                <label className="filter_label" htmlFor={`input-${name.value}`}>
+                  {name.label}
+                </label>
+              </fieldset>
+            ))}
+          </div>
         </div>
       )}
     </fieldset>
@@ -160,16 +159,16 @@ function RadioFilter(props) {
 
   // console.log('selectedFilterItems', selectedFilterItems)
 
-  const menuRef = useRef();
+  const menuRef = useRef()
 
   useEffect(() => {
-    const closeFilter = (e) =>{
+    const closeFilter = (e) => {
       if (!menuRef.current.contains(e.target)) {
-        setIsRadioDisplayed(false);
+        setIsRadioDisplayed(false)
       }
-    };
-    document.addEventListener("mousedown", closeFilter);
-    return () => document.removeEventListener("mousedown", closeFilter);
+    }
+    document.addEventListener('mousedown', closeFilter)
+    return () => document.removeEventListener('mousedown', closeFilter)
   }, [])
 
   return (
@@ -200,11 +199,14 @@ function RadioFilter(props) {
                 id={`input-${name.value}`}
                 value={`radio-${name.value}`}
                 type="radio"
-                checked={selectedFilterItems[name.value]}
+                name ="years"
                 key={name.value}
                 className="filter_radio_input"
               />
-              <label className="filter_radio_label" htmlFor={`input-${name.value}`}>
+              <label
+                className="filter_radio_label"
+                htmlFor={`input-${name.value}`}
+              >
                 {name.label}
               </label>
             </fieldset>

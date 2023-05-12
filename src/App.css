@@ -102,10 +102,11 @@ body {
   justify-content: space-between;
 }
 
-.fieldset_nav_menu{
+.fieldset_nav_menu {
   border: none;
   width: 24px;
 }
+
 .main__nav {
   width: 244px;
   background-color: #181818;
@@ -399,7 +400,6 @@ body {
   background: #313131;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -436,7 +436,6 @@ body {
   width: 321px;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
@@ -732,7 +731,6 @@ body {
   background-color: #313131;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;

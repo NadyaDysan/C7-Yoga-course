@@ -39,14 +39,15 @@ setTimeout(setIsLoading, 5000, false);
         <div className="content__playlist playlist">
           <div className="playlist__item">
             <div className="playlist__track track">
-              <div className="track__title">
+              <div className="track__title">            
                 <div className="track__title-image">
+                {isLoading? <Skeleton /> :
                   <svg className="track__title-svg" alt="music">
                     <use xlinkHref="img/icon/sprite.svg#icon-note" />
-                  </svg>
-                </div>
+                  </svg>}
+                </div>               
                 <div className="track__title-text">
-                  {isLoading? <Skeleton /> :
+                {isLoading? <Skeleton width="240px" height="16px"/> :
                   <a className="track__title-link" href="http://">
                     Guilt
                     <span className="track__title-span" />
@@ -61,10 +62,10 @@ setTimeout(setIsLoading, 5000, false);
                 }
               </div>
               <div className="track__album">
-                <Skeleton />
-                {/* <a className="track__album-link" href="http://">
+              {isLoading? <Skeleton /> : 
+                <a className="track__album-link" href="http://">
                   Welcome Reality
-                </a> */}
+                </a>}
               </div>
               <div className="track__time">
                 <svg className="track__time-svg" alt="time">
