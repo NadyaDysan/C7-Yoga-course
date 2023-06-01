@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useRef, useEffect } from 'react'
+import * as S from "./Navigation-styles";
 
 export default function Navigation() {
   const [navBurgerOpen, setNavBurgerOpen] = useState(false)
@@ -21,35 +22,35 @@ export default function Navigation() {
 
   return (
     <nav className="main__nav nav">
-      <div className="nav__logo logo">
-        <img className="logo__image" src="src/img/logo.png" alt="logo" />
-      </div>
+      <S.NavigationLogo>
+        <S.LogoImage src="src/img/logo.png" alt="logo" />
+      </S.NavigationLogo>
       <fieldset className="fieldset_nav_menu" ref={navMenuRef}>
-      <div className="nav__burger burger" onClick={toggleNavBurger}>
-        <span className="burger__line" />
-        <span className="burger__line" />
-        <span className="burger__line" />
-      </div>
+      <S.NavigationBurger onClick={toggleNavBurger}>
+        <S.BurgerLine/>
+        <S.BurgerLine/>
+        <S.BurgerLine/>
+      </S.NavigationBurger>
       {navBurgerOpen && (
-        <div className="nav__menu menu">
-          <ul className="menu__list">
-            <li className="menu__item">
-              <a href="http://" className="menu__link">
+        <S.NavigationMenu>
+          <S.MenuList>
+            <S.MenuItem>
+              <S.MenuLink>
                 Главное
-              </a>
-            </li>
-            <li className="menu__item">
-              <a href="http://" className="menu__link">
+              </S.MenuLink>
+            </S.MenuItem>
+            <S.MenuItem>
+              <S.MenuLink>
                 Мой плейлист
-              </a>
-            </li>
-            <li className="menu__item">
-              <a href="http://" className="menu__link">
+              </S.MenuLink>
+            </S.MenuItem>
+            <S.MenuItem>
+              <S.MenuLink>
                 Войти
-              </a>
-            </li>
-          </ul>
-        </div>
+              </S.MenuLink>
+            </S.MenuItem>
+          </S.MenuList>
+        </S.NavigationMenu>
       )}
       </fieldset>
     </nav>

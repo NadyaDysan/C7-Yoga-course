@@ -1,11 +1,11 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
+} */
 
-*:before,
+/* *:before,
 *:after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -25,16 +25,16 @@ button,
 
 ul li {
   list-style: none;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'StratosSkyeng';
   src: local("StratosSkyeng"), local("StratosSkyeng"), url("/src/fonts/Stratos-Regular.woff2") format("woff2"), url("/src/fonts/Stratos-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
-}
+} */
 
-html,
+/* html,
 body {
   width: 100%;
   height: 100%;
@@ -124,17 +124,17 @@ body {
 .main__sidebar {
   max-width: 418px;
   padding: 20px 90px 20px 78px;
-}
+} */
 
-.nav__logo {
+/* .nav__logo {
   width: 113.33px;
   height: 43px;
   padding: 13px 0 13px 0;
   background-color: transparent;
   margin-bottom: 20px;
-}
+} */
 
-.nav__burger {
+/* .nav__burger {
   width: 20px;
   height: 36px;
   padding: 13px 0;
@@ -148,44 +148,44 @@ body {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-}
+} */
 
-.nav__menu {
+/* .nav__menu {
   display: block;
   visibility: visible;
   position: absolute;
   background-color: #1C1C1C;
   width: 244px;
-}
+} */
 
-.logo__image {
+/* .logo__image {
   width: 113.33px;
   height: 17px;
   color: #181818;
-}
+} */
 
-.burger__line {
+/* .burger__line {
   display: inline-block;
   width: 100%;
   height: 1px;
   background-color: #D3D3D3;
-}
+} */
 
-.menu__list {
+/* .menu__list {
   padding: 18px 0 10px 0;
-}
+} */
 
-.menu__item {
+/* .menu__item {
   padding: 5px 0;
   margin-bottom: 16px;
-}
+} */
 
-.menu__link {
+/* .menu__link {
   color: #FFFFFF;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-}
+} */
 
 .centerblock__search {
   width: 100%;
