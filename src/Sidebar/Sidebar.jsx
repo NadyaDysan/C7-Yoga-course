@@ -1,35 +1,29 @@
+import * as S from './Sidebar-style'
+
+const sidebarI = [
+  { title: 'playlist01', link: '/#', imageSrc: 'img/playlist01.png' },
+  { title: 'playlist02', link: '/#', imageSrc: 'img/playlist02.png' },
+  { title: 'playlist03', link: '/#', imageSrc: 'img/playlist03.png' },
+]
+
 export default function Sidebar() {
-    return(
-      <div className="main__sidebar sidebar">
-                      <div className="sidebar__personal">
-                          <p className="sidebar__personal-name">Sergey.Ivanov</p>
-                          <div className="sidebar__avatar" />
-                      </div>
-                      <div className="sidebar__block">
-                          <div className="sidebar__list">
-                              <div className="sidebar__item">
-                                  <a className="sidebar__link" href="/#">
-                                      <img className="sidebar__img" 
-                                      src="img/playlist01.png" alt="day's playlist"
-                                      />
-                                  </a>
-                              </div>
-                              <div className="sidebar__item">
-                                  <a className="sidebar__link" href="/#">
-                                      <img className="sidebar__img" 
-                                      src="img/playlist02.png" alt="day's playlist"
-                                      />
-                                  </a>
-                              </div>
-                              <div className="sidebar__item">
-                                  <a className="sidebar__link" href="/#">
-                                      <img className="sidebar__img" 
-                                      src="img/playlist03.png" alt="day's playlist"
-                                      />
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-    )
-  }
+  return (
+    <S.MainSidebar>
+      <S.SidebarPersonal>
+        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarAvatar />
+      </S.SidebarPersonal>
+      <S.SidebarBlock>
+        <S.SidebarList>
+          {sidebarI.map((item) => (
+            <S.SidebarItem key={item.title}>
+              <S.SidebarLink href={item.link}>
+                <S.SidebarImg src={item.imageSrc} alt="day's playlist" />
+              </S.SidebarLink>
+            </S.SidebarItem>
+          ))}
+        </S.SidebarList>
+      </S.SidebarBlock>
+    </S.MainSidebar>
+  )
+}

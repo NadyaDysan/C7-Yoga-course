@@ -4,6 +4,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import * as S from "./Navigation-styles";
 
+const navMenu = [
+  {title: "Главное",
+    link: '#',
+  },
+  {title: "Мой плейлист",
+    link: '#',
+  },
+  {title: "Войти",
+    link: '#',
+  },
+]
+
 export default function Navigation() {
   const [navBurgerOpen, setNavBurgerOpen] = useState(false)
   const toggleNavBurger = () => setNavBurgerOpen(!navBurgerOpen)
@@ -33,23 +45,13 @@ export default function Navigation() {
       </S.NavigationBurger>
       {navBurgerOpen && (
         <S.NavigationMenu>
-          <S.MenuList>
-            <S.MenuItem>
-              <S.MenuLink>
-                Главное
+          {navMenu.map((item)=> (
+            <S.MenuItem key={item.title}>
+              <S.MenuLink href={item.link}>
+                {item.title}
               </S.MenuLink>
             </S.MenuItem>
-            <S.MenuItem>
-              <S.MenuLink>
-                Мой плейлист
-              </S.MenuLink>
-            </S.MenuItem>
-            <S.MenuItem>
-              <S.MenuLink>
-                Войти
-              </S.MenuLink>
-            </S.MenuItem>
-          </S.MenuList>
+          ))}
         </S.NavigationMenu>
       )}
       </fieldset>
