@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro';
 
 export const NavigationLogo = styled.div`
   width: 113.33px;
