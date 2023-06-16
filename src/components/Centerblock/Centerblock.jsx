@@ -129,7 +129,7 @@ export default function Centerblock() {
                       <Skeleton width="240px" height="16px" />
                     ) : (
                       <S.TrackTitleLink href="http://">
-                        {item.title} 
+                        {item.title} &nbsp;
                         <S.TrackTitleSpan>{item.title_span}</S.TrackTitleSpan>
                       </S.TrackTitleLink>
                     )}

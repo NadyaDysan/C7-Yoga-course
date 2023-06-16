@@ -33,11 +33,11 @@ export default function Navigation() {
   }, [])
 
   return (
-    <nav className="main__nav nav">
+    <S.MainNav>
       <S.NavigationLogo>
-        <S.LogoImage src="src/img/logo.png" alt="logo" />
+        <S.LogoImage src="/logo.png" alt="logo" />
       </S.NavigationLogo>
-      <fieldset className="fieldset_nav_menu" ref={navMenuRef}>
+      <S.FieldsetNavMenu ref={navMenuRef}>
       <S.NavigationBurger onClick={toggleNavBurger}>
         <S.BurgerLine/>
         <S.BurgerLine/>
@@ -54,7 +54,7 @@ export default function Navigation() {
           ))}
         </S.NavigationMenu>
       )}
-      </fieldset>
-    </nav>
+      </S.FieldsetNavMenu>
+    </S.MainNav>
   )
 }

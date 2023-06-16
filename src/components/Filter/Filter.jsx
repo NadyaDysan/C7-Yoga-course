@@ -119,11 +119,7 @@ function DropdownFilter(props) {
             {props.list.map((name) => (
               <S.FilterPanelItems
                 key={name.value}
-                // className={
-                //   selectedFilterItems[name.value]
-                //     ? `selected filter_panel_items`
-                //     : 'filter_panel_items'
-                // }
+                isSelected={selectedFilterItems[name.value]}
               >
                 <input
                   onChange={(e) =>
@@ -178,11 +174,7 @@ function RadioFilter(props) {
           {props.list.map((name) => (
             <S.FilterPanelItems
               key={name.value}
-              className={
-                selectedFilterItems[name.value]
-                  ? `selected filter_panel_items`
-                  : 'filter_panel_items'
-              }
+              isSelected={selectedFilterItems[name.value]}
             >
               <S.FilterRadioInput
                 onChange={(e) =>
@@ -196,9 +188,7 @@ function RadioFilter(props) {
                 name="years"
                 key={name.value}
               />
-              <S.FilterLabel
-                htmlFor={`input-${name.value}`}
-              >
+              <S.FilterLabel htmlFor={`input-${name.value}`}>
                 {name.label}
               </S.FilterLabel>
             </S.FilterPanelItems>

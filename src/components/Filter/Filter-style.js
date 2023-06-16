@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro'
 
 export const CenterBlockFilter = styled.div`
   display: -webkit-box;
@@ -87,14 +87,17 @@ export const FilterPanel = styled.div`
     padding: 10px;
   }
 `
+
 export const FilterPanelItems = styled.fieldset`
   border: none;
-  ${({ selectedFilterItems }) =>
-    selectedFilterItems &&
-    `color: #B672FF;
-    text-decoration: underline;
+  ${({ isSelected }) =>
+    isSelected &&
+    css`
+      color: #b672ff;
+      text-decoration: underline;
     `}
 `
+
 export const FilterRadioPanel = styled.div`
   position: absolute;
   display: flex;

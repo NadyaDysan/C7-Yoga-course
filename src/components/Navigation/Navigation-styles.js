@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
 export const NavigationLogo = styled.div`
   width: 113.33px;
@@ -55,4 +55,13 @@ export const MenuLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+`
+export const FieldsetNavMenu = styled.fieldset`
+  border: none;
+  width: 24px;
+`
+export const MainNav = styled.nav`
+width: 244px;
+  background-color: #181818;
+  padding: 20px 0 20px 36px;
 `
