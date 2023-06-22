@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import { useEffect, useRef, useState } from 'react'
 
-import './Filter.css'
+import * as S from './Filter-style'
 
 const singers = [
   {
@@ -74,12 +74,12 @@ const years = [
 
 export default function Filter() {
   return (
-    <div className="centerblock__filter filter">
-      <div className="filter__title">Искать по:</div>
+    <S.CenterBlockFilter>
+      <S.FilterTitle>Искать по:</S.FilterTitle>
       <DropdownFilter title="исполнителю" list={singers} name="singer" />
       <RadioFilter title="году выпуска" list={years} name="year" />
       <DropdownFilter title="жанру" list={genres} name="genre" />
-    </div>
+    </S.CenterBlockFilter>
   )
 }
 
@@ -91,8 +91,6 @@ function DropdownFilter(props) {
 
   const numberOfFilterItemsSelected =
     Object.values(selectedFilterItems).filter(Boolean).length
-
-  // console.log('selectedFilterItems', selectedFilterItems)
 
   const menuRef = useRef()
 
@@ -107,26 +105,21 @@ function DropdownFilter(props) {
   }, [])
 
   return (
-    <fieldset className="filter_dropdown" ref={menuRef}>
-      <button
-        className="filter__button _btn-text"
+    <S.FilterDropdown ref={menuRef}>
+      <S.FilterButton
         onClick={() => setIsDropdownDisplayed((prevState) => !prevState)}
       >
         {numberOfFilterItemsSelected > 0
           ? `${props.title} ${numberOfFilterItemsSelected}`
           : `${props.title}`}
-      </button>
+      </S.FilterButton>
       {isDropdownDisplayed && (
-        <div className="filter_panel_wrapper">
-          <div className="filter_panel">
+        <S.FilterPanelWrapper>
+          <S.FilterPanel>
             {props.list.map((name) => (
-              <fieldset
+              <S.FilterPanelItems
                 key={name.value}
-                className={
-                  selectedFilterItems[name.value]
-                    ? `selected filter_panel_items`
-                    : 'filter_panel_items'
-                }
+                isSelected={selectedFilterItems[name.value]}
               >
                 <input
                   onChange={(e) =>
@@ -139,15 +132,15 @@ function DropdownFilter(props) {
                   type="checkbox"
                   checked={selectedFilterItems[name.value]}
                 />
-                <label className="filter_label" htmlFor={`input-${name.value}`}>
+                <S.FilterLabel htmlFor={`input-${name.value}`}>
                   {name.label}
-                </label>
-              </fieldset>
+                </S.FilterLabel>
+              </S.FilterPanelItems>
             ))}
-          </div>
-        </div>
+          </S.FilterPanel>
+        </S.FilterPanelWrapper>
       )}
-    </fieldset>
+    </S.FilterDropdown>
   )
 }
 
@@ -156,8 +149,6 @@ function RadioFilter(props) {
   const [selectedFilterItems, setSelectedFilterItems] = useState(
     props.list.reduce((obj, name) => ({ ...obj, [name.value]: false }), {})
   )
-
-  // console.log('selectedFilterItems', selectedFilterItems)
 
   const menuRef = useRef()
 
@@ -172,25 +163,20 @@ function RadioFilter(props) {
   }, [])
 
   return (
-    <fieldset className="filter_radio_main_fieldset" ref={menuRef}>
-      <button
-        className="filter__button button-year _btn-text button_radio_filter"
+    <S.FilterRadioMainFieldset ref={menuRef}>
+      <S.FilterButton
         onClick={() => setIsRadioDisplayed((prevState) => !prevState)}
       >
         {props.title}
-      </button>
+      </S.FilterButton>
       {isRadioDisplayed && (
-        <div className="filter_radio_panel">
+        <S.FilterRadioPanel>
           {props.list.map((name) => (
-            <fieldset
+            <S.FilterPanelItems
               key={name.value}
-              className={
-                selectedFilterItems[name.value]
-                  ? `selected filter_panel_items`
-                  : 'filter_panel_items'
-              }
+              isSelected={selectedFilterItems[name.value]}
             >
-              <input
+              <S.FilterRadioInput
                 onChange={(e) =>
                   setSelectedFilterItems({
                     [name.value]: e.target.checked,
@@ -199,20 +185,16 @@ function RadioFilter(props) {
                 id={`input-${name.value}`}
                 value={`radio-${name.value}`}
                 type="radio"
-                name ="years"
+                name="years"
                 key={name.value}
-                className="filter_radio_input"
               />
-              <label
-                className="filter_radio_label"
-                htmlFor={`input-${name.value}`}
-              >
+              <S.FilterLabel htmlFor={`input-${name.value}`}>
                 {name.label}
-              </label>
-            </fieldset>
+              </S.FilterLabel>
+            </S.FilterPanelItems>
           ))}
-        </div>
+        </S.FilterRadioPanel>
       )}
-    </fieldset>
+    </S.FilterRadioMainFieldset>
   )
 }
