@@ -63,12 +63,6 @@ const BtnIcon = css`
     stroke: #ffffff;
     cursor: pointer;
   }
-  &:active .track-play__like-svg,
-  :active .track-play__dislike-svg {
-    fill: #696969;
-    stroke: #ffffff;
-    cursor: pointer;
-  }
 `
 
 const PlayerBtns = css`
@@ -213,12 +207,22 @@ export const TrackPlayLikeSvg = styled.svg`
   stroke: #696969;
   &:hover {
   }
+  &:active {
+    fill: #696969;
+    stroke: #ffffff;
+    cursor: pointer;
+  }
 `
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
   fill: transparent;
   stroke: #696969;
+  &:active {
+    fill: #696969;
+    stroke: #ffffff;
+    cursor: pointer;
+  }
 `
 export const VolumeContent = styled.div`
   display: -webkit-box;

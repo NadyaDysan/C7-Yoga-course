@@ -1,10 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-import Navigation from './components/Navigation/Navigation'
-import Sidebar from './components/Sidebar/Sidebar'
-import Player from './components/Player/Player'
-import Centerblock from './components/Centerblock/Centerblock'
+import { useState } from "react";
+// import AppRoutes from "./routes";
+import Enter from "./components/Enter/Enter";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -96,17 +94,21 @@ const StyledContainer = styled.div`
 `
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = () => setUser({ login: "taradam" });
+
+  const handleLogout = () => setUser(null);
+
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <GlobalStyle />
       <StyledWrapper>
         <StyledContainer>
-          <main>
-            <Navigation />
-            <Centerblock />
-            <Player />
-          </main>
-          <Sidebar />
+          <Enter user={user}
+          onEnterButtonClick={user ? handleLogout : handleLogin}
+          />
+            {/* <AppRoutes user={user} /> */}
         </StyledContainer>
       </StyledWrapper>
     </SkeletonTheme>

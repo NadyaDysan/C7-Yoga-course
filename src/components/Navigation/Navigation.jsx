@@ -35,7 +35,7 @@ export default function Navigation() {
   return (
     <S.MainNav>
       <S.NavigationLogo>
-        <S.LogoImage src="/logo.png" alt="logo" />
+        <S.LogoImage src="img/logo.png" alt="logo" />
       </S.NavigationLogo>
       <S.FieldsetNavMenu ref={navMenuRef}>
       <S.NavigationBurger onClick={toggleNavBurger}>

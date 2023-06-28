@@ -84,7 +84,7 @@ const playlistI = [
   },
 ]
 
-export default function Centerblock() {
+export default function Centerblock({title}) {
   const [isLoading, setIsLoading] = useState(true)
 
   setTimeout(setIsLoading, 5000, false)
@@ -97,7 +97,7 @@ export default function Centerblock() {
         </S.SearchSvg>
         <S.SearchText type="search" placeholder="Поиск" name="search" />
       </S.CenterBlockSearch>
-      <S.CenterBlockH2>Треки</S.CenterBlockH2>
+      <S.CenterBlockH2>{title}</S.CenterBlockH2>
       <Filter />
       <S.CenterBlockContent>
         <S.ContentTitle>
