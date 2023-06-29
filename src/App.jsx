@@ -1,8 +1,9 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-import { useState } from "react";
-// import AppRoutes from "./routes";
-import Enter from "./components/Enter/Enter";
+// import { useState } from "react";
+import Cookies from 'js-cookie'
+import AppRoutes from "./routes";
+// import Enter from "./components/Enter/Enter";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -94,21 +95,24 @@ const StyledContainer = styled.div`
 `
 
 function App() {
-  const [user, setUser] = useState(null);
 
-  const handleLogin = () => setUser({ login: "taradam" });
+  const userToken = Cookies.get('token') // => '1234'
 
-  const handleLogout = () => setUser(null);
+  // const [user, setUser] = useState(null);
+
+  // const handleLogin = () => setUser({ login: "token" });
+
+  // const handleLogout = () => setUser(null);
 
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <GlobalStyle />
       <StyledWrapper>
         <StyledContainer>
-          <Enter user={user}
+          {/* <Enter user={user}
           onEnterButtonClick={user ? handleLogout : handleLogin}
-          />
-            {/* <AppRoutes user={user} /> */}
+          /> */}
+            <AppRoutes user={userToken} />
         </StyledContainer>
       </StyledWrapper>
     </SkeletonTheme>

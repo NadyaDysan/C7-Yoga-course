@@ -11,10 +11,10 @@ import EnterForm from './pages/enter_form'
 export default function AppRoutes({ user }) {
   return (
     <Routes>
+      <Route path="/" element={<EnterForm />} />
       <Route path="/registration" element={<RegistrationForm />} />
-      <Route path="/enter_form" element={<EnterForm />} />
-      <Route path="/" element={<Main />} />
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
+        <Route path="/main" element={<Main />} />
         <Route path="/day_playlist/:id" element={<DayPlaylist />} />
         <Route path="/100_tracks/:id" element={<HundredTracks />} />
         <Route path="/indy/:id" element={<Indy />} />
