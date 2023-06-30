@@ -7,6 +7,7 @@ import MyTracks from './pages/my_tracks'
 import RegistrationForm from './pages/registration_form'
 import ProtectedRoute from './components/protected-route'
 import EnterForm from './pages/enter_form'
+import NotFoundPage from './pages/not_found'
 
 export default function AppRoutes({ user }) {
   return (
@@ -20,6 +21,7 @@ export default function AppRoutes({ user }) {
         <Route path="/indy/:id" element={<Indy />} />
         <Route path="/my_tracks/:id" element={<MyTracks />} />
       </Route>
+    <Route path="*" element={<NotFoundPage />} /> 
     </Routes>
   )
 }

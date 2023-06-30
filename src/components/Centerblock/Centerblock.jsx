@@ -1,8 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useState } from 'react'
 import Filter from '../Filter/Filter'
+import Search from '../Search/Search'
 import * as S from './Centerblock-style'
 
 const playlistI = [
@@ -91,12 +91,7 @@ export default function Centerblock({title}) {
 
   return (
     <S.MainCenterBlock>
-      <S.CenterBlockSearch>
-        <S.SearchSvg>
-          <use xlinkHref="img/icon/sprite.svg#icon-search" />
-        </S.SearchSvg>
-        <S.SearchText type="search" placeholder="Поиск" name="search" />
-      </S.CenterBlockSearch>
+      <Search/>
       <S.CenterBlockH2>{title}</S.CenterBlockH2>
       <Filter />
       <S.CenterBlockContent>

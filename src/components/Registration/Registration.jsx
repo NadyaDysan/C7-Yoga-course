@@ -1,15 +1,22 @@
-import * as S from "./Registration-style";
+import { NavLink } from 'react-router-dom'
+import * as S from './Registration-style'
 
 
 export default function Registration() {
-
   return (
     <S.RegisterBlock>
-        <S.Logo src="img/logo.png" alt="logo"/>
-        <S.Login name="Login" placeholder="Логин"/>
-        <S.Password name="Password" placeholder="Пароль"/>
-        <S.RepeatPassword name="RepeatPassword" placeholder="Повторить пароль"/>
+      <S.Logo src="img/logo_black.png" alt="logo" />
+      <S.InputBlock>
+        <S.Login name="Login" placeholder="Логин" />
+        <S.Password name="Password" placeholder="Пароль" />
+        <S.RepeatPassword
+          name="RepeatPassword"
+          placeholder="Повторить пароль"
+        />
+        <NavLink to="/enter_form">
         <S.RegisterButton>Зарегистрироваться</S.RegisterButton>
+        </NavLink>
+      </S.InputBlock>
     </S.RegisterBlock>
   )
 }

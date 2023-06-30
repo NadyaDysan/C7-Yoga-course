@@ -27,7 +27,7 @@ export const Logo = styled.img`
   color: #181818;
 `
 export const Login = styled.input`
-font-family: 'StratosSkyeng';
+  font-family: 'StratosSkyeng';
   border: none;
   border-bottom: 1px solid #d0cece;
   box-sizing: border-box;
@@ -36,7 +36,7 @@ font-family: 'StratosSkyeng';
   padding: 2px;
 `
 export const Password = styled.input`
-font-family: 'StratosSkyeng';
+  font-family: 'StratosSkyeng';
   border: none;
   border-bottom: 1px solid #d0cece;
   box-sizing: border-box;
@@ -45,7 +45,7 @@ font-family: 'StratosSkyeng';
   padding: 2px;
 `
 export const EnterButton = styled.button`
-font-family: 'StratosSkyeng';
+  font-family: 'StratosSkyeng';
   width: 278px;
   height: 52px;
   background-color: #580ea2;
@@ -53,12 +53,14 @@ font-family: 'StratosSkyeng';
   border-radius: 6px;
   color: #ffffff;
   margin-top: 34px;
+  font-size: 16px;
 `
 export const RegisterButton = styled.button`
-font-family: 'StratosSkyeng';
-width: 278px;
-height: 52px;
-background-color: #FFFF;
-border-radius: 6px;
-border: 1px solid #D0CECE;
+  font-family: 'StratosSkyeng';
+  width: 278px;
+  height: 52px;
+  background-color: #ffff;
+  border-radius: 6px;
+  border: 1px solid #d0cece;
+  font-size: 16px;
 `

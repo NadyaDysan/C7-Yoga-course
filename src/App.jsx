@@ -37,6 +37,10 @@ ul li {
   list-style: none;
 }
 
+h1 {
+font-size: 160px;
+}
+
 html,
 body {
   width: 100%;

@@ -6,13 +6,13 @@ import * as S from "./Navigation-styles";
 
 const navMenu = [
   {title: "Главное",
-    link: '#',
+    link: '/main',
   },
   {title: "Мой плейлист",
-    link: '#',
+    link: '/my_tracks/:id',
   },
   {title: "Войти",
-    link: '#',
+    link: '/',
   },
 ]
 
