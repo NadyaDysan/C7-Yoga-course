@@ -13,7 +13,7 @@ export default function Registration() {
           name="RepeatPassword"
           placeholder="Повторить пароль"
         />
-        <NavLink to="/enter_form">
+        <NavLink to="/">
         <S.RegisterButton>Зарегистрироваться</S.RegisterButton>
         </NavLink>
       </S.InputBlock>

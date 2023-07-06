@@ -8,7 +8,9 @@ export default function NotFoundPage() {
   return (
     <main>
       <Navigation />
-      <Search style={{width: '70%'}}/>
+      <div style={{width: '85%'}}>
+      <Search />
+      </div>
       <NotFound/>
       <Player />
     </main>

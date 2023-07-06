@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro'
 
 export const Bar = styled.div`
   position: absolute;
@@ -15,11 +15,6 @@ export const BarContent = styled.div`
   flex-direction: column;
 `
 
-export const BarPlayerProgress = styled.div`
-  width: 100%;
-  height: 5px;
-  background: #2e2e2e;
-`
 export const BarPlayerBlock = styled.div`
   height: 73px;
   display: -webkit-box;
@@ -194,11 +189,21 @@ export const TrackPlayLikeDis = styled.div`
 export const TrackPlayLike = styled.div`
   ${BtnIcon}
   padding: 5px;
+  &:active svg {
+    fill: #ad61ff;
+    stroke: #ffffff;
+    cursor: pointer;
+  }
 `
 export const TrackPlayDislike = styled.div`
   ${BtnIcon}
   padding: 5px;
   margin-left: 28.5px;
+  &:active svg {
+    fill: #ad61ff;
+    stroke: #ffffff;
+    cursor: pointer;
+  }
 `
 export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
@@ -207,23 +212,23 @@ export const TrackPlayLikeSvg = styled.svg`
   stroke: #696969;
   &:hover {
   }
-  &:active {
-    fill: #696969;
-    stroke: #ffffff;
-    cursor: pointer;
-  }
 `
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
   fill: transparent;
   stroke: #696969;
-  &:active {
-    fill: #696969;
-    stroke: #ffffff;
-    cursor: pointer;
-  }
 `
+export const BarPlayerTimerBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 138px;
+`
+export const PlayerTimer = styled.div``
+
 export const VolumeContent = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
