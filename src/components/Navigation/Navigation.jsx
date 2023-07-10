@@ -6,13 +6,13 @@ import * as S from "./Navigation-styles";
 
 const navMenu = [
   {title: "Главное",
-    link: '#',
+    link: '/main',
   },
   {title: "Мой плейлист",
-    link: '#',
+    link: '/my_tracks/:id',
   },
   {title: "Войти",
-    link: '#',
+    link: '/',
   },
 ]
 
@@ -35,7 +35,7 @@ export default function Navigation() {
   return (
     <S.MainNav>
       <S.NavigationLogo>
-        <S.LogoImage src="/logo.png" alt="logo" />
+        <S.LogoImage src="img/logo.png" alt="logo" />
       </S.NavigationLogo>
       <S.FieldsetNavMenu ref={navMenuRef}>
       <S.NavigationBurger onClick={toggleNavBurger}>

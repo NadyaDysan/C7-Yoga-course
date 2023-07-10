@@ -1,10 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-import Navigation from './components/Navigation/Navigation'
-import Sidebar from './components/Sidebar/Sidebar'
-import Player from './components/Player/Player'
-import Centerblock from './components/Centerblock/Centerblock'
+// import { useState } from "react";
+import Cookies from 'js-cookie'
+import AppRoutes from "./routes";
+// import Enter from "./components/Enter/Enter";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -36,6 +35,10 @@ button {
 
 ul li {
   list-style: none;
+}
+
+h1 {
+font-size: 160px;
 }
 
 html,
@@ -96,17 +99,24 @@ const StyledContainer = styled.div`
 `
 
 function App() {
+
+  const userToken = Cookies.get('token') // => '1234'
+
+  // const [user, setUser] = useState(null);
+
+  // const handleLogin = () => setUser({ login: "token" });
+
+  // const handleLogout = () => setUser(null);
+
   return (
     <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <GlobalStyle />
       <StyledWrapper>
         <StyledContainer>
-          <main>
-            <Navigation />
-            <Centerblock />
-            <Player />
-          </main>
-          <Sidebar />
+          {/* <Enter user={user}
+          onEnterButtonClick={user ? handleLogout : handleLogin}
+          /> */}
+            <AppRoutes user={userToken} />
         </StyledContainer>
       </StyledWrapper>
     </SkeletonTheme>

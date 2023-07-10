@@ -23,7 +23,7 @@ export const NavigationMenu = styled.div`
   display: block;
   visibility: visible;
   position: absolute;
-  background-color: #1c1c1c;
+  background-color: #181818;
   width: 244px;
 `
 
