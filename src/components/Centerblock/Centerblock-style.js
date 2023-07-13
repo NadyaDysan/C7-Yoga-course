@@ -111,7 +111,7 @@ export const TrackTitleLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
+ ${props => props.theme};
 `
 
 export const TrackTitleSpan = styled.span`
@@ -134,6 +134,7 @@ export const TrackAuthorLink = styled.a`
   line-height: 24px;
   color: #ffffff;
   text-align: left;
+  ${props => props.theme};
 `
 
 export const TrackAlbum = styled.div`
@@ -145,7 +146,7 @@ export const TrackAlbumLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #696969;
+  color: var(--color-link, #696969);
 `
 
 export const TrackTimeSvg = styled.svg`

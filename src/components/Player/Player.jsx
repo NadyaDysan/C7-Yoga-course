@@ -99,7 +99,7 @@ export default function Player() {
                 <S.PlayerBtnPlay onClick={togglePlay}>
                   {isPlaying ? (
                     <S.PlayerBtnPlaySvg alt="pause">
-                      <use xlinkHref="img/icon/pause.svg" />
+                      <use xlinkHref="img/icon/sprite.svg#icon-pause" />
                     </S.PlayerBtnPlaySvg>
                   ) : (
                     <S.PlayerBtnPlaySvg alt="play">

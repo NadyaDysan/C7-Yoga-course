@@ -1,13 +1,15 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import * as S from './Enter-style'
+import {ChangeSignInTitle} from '../Navigation/Navigation'
 
 export default function Enter({ user }) {
   const navigate = useNavigate()
 
   const signIn = () => {
     Cookies.set('token', '1234');
-    navigate('/main')
+    navigate('/main');
+    ChangeSignInTitle();
   }
 
   return (

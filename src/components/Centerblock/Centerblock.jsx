@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
 import * as S from './Centerblock-style'
+import {useThemeContext} from '../ThemeSwitcher/ThemeSwitcher'
 
 const playlistI = [
   {
@@ -87,7 +88,10 @@ const playlistI = [
 export default function Centerblock({title}) {
   const [isLoading, setIsLoading] = useState(true)
 
+  const { theme } = useThemeContext();
+
   setTimeout(setIsLoading, 5000, false)
+
 
   return (
     <S.MainCenterBlock>
@@ -123,7 +127,7 @@ export default function Centerblock({title}) {
                     {isLoading ? (
                       <Skeleton width="240px" height="16px" />
                     ) : (
-                      <S.TrackTitleLink href="http://">
+                      <S.TrackTitleLink theme={theme} href="http://">
                         {item.title} &nbsp;
                         <S.TrackTitleSpan>{item.title_span}</S.TrackTitleSpan>
                       </S.TrackTitleLink>
@@ -134,7 +138,7 @@ export default function Centerblock({title}) {
                   {isLoading ? (
                     <Skeleton />
                   ) : (
-                    <S.TrackAuthorLink href="http://">
+                    <S.TrackAuthorLink theme={theme} href="http://">
                       {item.author}
                     </S.TrackAuthorLink>
                   )}

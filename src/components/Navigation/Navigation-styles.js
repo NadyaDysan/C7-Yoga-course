@@ -24,7 +24,6 @@ export const NavigationMenu = styled.div`
   visibility: visible;
   position: absolute;
   background-color: #181818;
-  width: 244px;
 `
 
 export const LogoImage = styled.img`
