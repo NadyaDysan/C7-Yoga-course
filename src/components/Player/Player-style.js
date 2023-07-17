@@ -13,6 +13,7 @@ export const BarContent = styled.div`
   display: -ms-flexbox;
   display: flex;
   flex-direction: column;
+  background-color: ${props => props.theme.background};
 `
 
 export const BarPlayerBlock = styled.div`
@@ -31,14 +32,7 @@ export const BarPlayer = styled.div`
   align-items: center;
   justify-content: flex-start;
 `
-export const BarVolumeBlock = styled.div`
-  width: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  padding: 0 92px 0 0;
-`
+
 export const PlayerControls = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -48,14 +42,17 @@ export const PlayerControls = styled.div`
 `
 
 const BtnIcon = css`
+fill: ${props => props.theme.BtnIconSvg1};
+stroke: ${props => props.theme.BtnIconSvg1};
+
   &:hover svg {
-    fill: transparent;
-    stroke: #acacac;
+    fill: ${props => props.theme.BtnIconSvg2};
+    stroke: ${props => props.theme.BtnIconSvg2};
     cursor: pointer;
   }
   &:active svg {
-    fill: transparent;
-    stroke: #ffffff;
+    fill: ${props => props.theme.BtnIconSvg1};
+    stroke: ${props => props.theme.BtnIconSvg1};
     cursor: pointer;
   }
 `
@@ -82,21 +79,20 @@ export const PlayerBtnPlay = styled.div`
   margin-right: 23px;
 `
 export const PlayerBtnPlaySvg = styled.svg`
+${BtnIcon}
   width: 22px;
   height: 20px;
-  fill: #d9d9d9;
 `
 export const PlayerBtnNext = styled.div`
   ${BtnIcon}
   ${PlayerBtns}
   margin-right: 28px;
-  fill: #a53939;
 `
 export const PlayerBtnNextSvg = styled.svg`
+${BtnIcon}
   width: 15px;
   height: 14px;
   fill: inherit;
-  stroke: #d9d9d9;
 `
 export const PlayerBtnRepeat = styled.div`
   ${BtnIcon}
@@ -104,10 +100,9 @@ export const PlayerBtnRepeat = styled.div`
   margin-right: 24px;
 `
 export const PlayerBtnRepeatSvg = styled.svg`
+${BtnIcon}
   width: 18px;
   height: 12px;
-  fill: transparent;
-  stroke: #696969;
 `
 export const PlayerBtnShuffle = styled.div`
   ${BtnIcon}
@@ -118,11 +113,11 @@ export const PlayerBtnShuffle = styled.div`
   align-items: center;
 `
 export const PlayerBtnShuffleSvg = styled.svg`
+${BtnIcon}
   width: 19px;
   height: 12px;
-  fill: transparent;
-  stroke: #696969;
 `
+
 export const PlayerTrackPlay = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -141,7 +136,8 @@ export const TrackPlayContain = styled.div`
 export const TrackPlayImage = styled.div`
   width: 51px;
   height: 51px;
-  background-color: #313131;
+  padding: 16px;
+  background-color: ${props => props.theme.lighterGreyColor};
   display: -webkit-box;
   display: -ms-flexbox;
   align-items: center;
@@ -153,7 +149,7 @@ export const TrackPlaySvg = styled.svg`
   width: 18px;
   height: 17px;
   fill: transparent;
-  stroke: #4e4e4e;
+  stroke: ${props => props.theme.lightGreyColor};
 `
 export const TrackPlayAuthor = styled.div`
   grid-area: author;
@@ -164,7 +160,7 @@ export const TrackPlayAuthorLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
+  color: ${props => props.theme.color};
   white-space: nowrap;
 `
 export const TrackPlayAlbum = styled.div`
@@ -176,7 +172,7 @@ export const TrackPlayAlbumLink = styled.a`
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
-  color: #ffffff;
+  color: ${props => props.theme.color};
 `
 export const TrackPlayLikeDis = styled.div`
   display: -webkit-box;
@@ -189,10 +185,10 @@ export const TrackPlayLikeDis = styled.div`
 export const TrackPlayLike = styled.div`
   ${BtnIcon}
   padding: 5px;
+  cursor: pointer;
   &:active svg {
     fill: #ad61ff;
-    stroke: #ffffff;
-    cursor: pointer;
+    stroke: ${props => props.theme.color};
   }
 `
 export const TrackPlayDislike = styled.div`
@@ -201,7 +197,7 @@ export const TrackPlayDislike = styled.div`
   margin-left: 28.5px;
   &:active svg {
     fill: #ad61ff;
-    stroke: #ffffff;
+    stroke: ${props => props.theme.color};
     cursor: pointer;
   }
 `
@@ -209,15 +205,13 @@ export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   fill: transparent;
-  stroke: #696969;
-  &:hover {
-  }
+  stroke: ${props => props.theme.BtnIconSvg2};
 `
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
   fill: transparent;
-  stroke: #696969;
+  stroke: ${props => props.theme.BtnIconSvg2};
 `
 export const BarPlayerTimerBlock = styled.div`
   display: flex;
@@ -226,6 +220,7 @@ export const BarPlayerTimerBlock = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   width: 138px;
+  color: ${props => props.theme.color}
 `
 export const PlayerTimer = styled.div``
 
@@ -246,14 +241,22 @@ export const VolumeImage = styled.div`
 export const VolumeSvg = styled.svg`
   width: 13px;
   height: 18px;
-  fill: transparent;
+  fill: ${props => props.theme.lightGreyColor};
 `
 export const VolumeProgress = styled.div`
   width: 109px;
   cursor: pointer;
 `
-export const VolumeProgressLine = styled.input`
-  width: 109px;
-  cursor: pointer;
-  accent-color: #ffffff;
+// export const VolumeProgressLine = styled.input`
+//   width: 109px;
+//   cursor: pointer;
+//   accent-color: ${props => props.theme.color};
+// `
+export const BarVolumeBlock = styled.div`
+  width: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  padding: 0 92px 0 0;
 `

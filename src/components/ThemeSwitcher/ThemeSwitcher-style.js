@@ -6,7 +6,7 @@ export const ThemeSwitcherIconSvg = styled.svg`
   flex-shrink: 0;
   height: 1em;
   width: 1em;
-  fill: currentColor;
+  fill: ${props => props.theme.color};
   transition: fill 0.3s;
 `
 

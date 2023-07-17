@@ -3,7 +3,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useRef, useEffect } from 'react'
 import * as S from './Navigation-styles'
-import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher'
+import ThemeSwitcher, {useThemeContext, themes} from '../ThemeSwitcher/ThemeSwitcher'
+
 
 const navMenu = [
   { id: 0, title: 'Главное', link: '/main' },
@@ -18,6 +19,8 @@ export const ChangeSignInTitle = () => {
 export default function Navigation() {
   const [navBurgerOpen, setNavBurgerOpen] = useState(false)
   const toggleNavBurger = () => setNavBurgerOpen(!navBurgerOpen)
+  const { theme } = useThemeContext();
+
 
   const navMenuRef = useRef()
 
@@ -32,9 +35,11 @@ export default function Navigation() {
   }, [])
 
   return (
-    <S.MainNav>
+    <S.MainNav theme={theme}>
       <S.NavigationLogo>
-        <S.LogoImage src="img/logo.png" alt="logo" />
+      {theme === themes.dark ? 
+      (<S.LogoImage src="img/logo.png" alt="logo" />
+      ):(<S.LogoImage src="img/logo_black.png" alt="logo" />)}
       </S.NavigationLogo>
       <S.FieldsetNavMenu ref={navMenuRef}>
         <S.NavigationBurger onClick={toggleNavBurger}>
@@ -43,10 +48,10 @@ export default function Navigation() {
           <S.BurgerLine />
         </S.NavigationBurger>
         {navBurgerOpen && (
-          <S.NavigationMenu>
+          <S.NavigationMenu theme={theme}>
             {navMenu.map((item) => (
               <S.MenuItem key={item.id}>
-                <S.MenuLink href={item.link}>{item.title}</S.MenuLink>
+                <S.MenuLink theme={theme} href={item.link}>{item.title}</S.MenuLink>
               </S.MenuItem>
             ))}
             <ThemeSwitcher />

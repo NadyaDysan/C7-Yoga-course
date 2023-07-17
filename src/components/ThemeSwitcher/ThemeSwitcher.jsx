@@ -5,10 +5,18 @@ export const themes = {
   light: {
     color: '#000000',
     background: '#fff',
+    lightGreyColor: '#B1B1B1',
+    lighterGreyColor: '#F6F4F4',
+    BtnIconSvg1: '#B1B1B1',
+    BtnIconSvg2: '#707070',
   },
   dark: {
     color: '#fff',
-    background: '#282c34',
+    background: '#181818',
+    lightGreyColor: '#4E4E4E',
+    lighterGreyColor: '#313131',
+    BtnIconSvg1: '#D9D9D9',
+    BtnIconSvg2: '#696969',
   },
 }
 
@@ -32,6 +40,7 @@ export default function ThemeSwitcher() {
   return (
     <S.ThemeSwitcherButton type="button" onClick={toggleTheme}>
       <S.ThemeSwitcherIconSvg
+        theme={theme}
         height="40"
         width="40"
         viewBox="0 0 40 40"

@@ -3,6 +3,8 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useState, useRef } from 'react'
 import ProgressBar from '../ProgressBar/ProgressBar'
+import {useThemeContext} from '../ThemeSwitcher/ThemeSwitcher'
+
 
 import * as S from './Player-style'
 
@@ -10,10 +12,14 @@ export default function Player() {
   const [isLoading, setIsLoading] = useState(true)
   setTimeout(setIsLoading, 5000, false)
 
+  const { theme } = useThemeContext();
+
   const [isPlaying, setIsPlaying] = useState(false)
   const [percentage, setPercentage] = useState(0)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
+  const [volumeLevel, setVolumeLevel] = useState(50)
+
 
   const audioRef = useRef(null)
 
@@ -73,6 +79,13 @@ export default function Player() {
     return `${min}m ${sec}s`
   }
 
+  onvolumechange = (e) => {
+    const audio = audioRef.current
+    audio.volume = e.target.value / 100;
+    setVolumeLevel(audio.volume*100)
+  }
+
+
   return (
     <>
       <audio
@@ -86,39 +99,39 @@ export default function Player() {
       </audio>
 
       <S.Bar>
-        <S.BarContent>
+        <S.BarContent theme={theme}>
           <ProgressBar onChange={onChange} percentage={percentage} />
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>
-                <S.PlayerBtnPrev>
-                  <S.PlayerBtnPrevSvg alt="prev">
+                <S.PlayerBtnPrev theme={theme}>
+                  <S.PlayerBtnPrevSvg theme={theme} alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
                 </S.PlayerBtnPrev>
-                <S.PlayerBtnPlay onClick={togglePlay}>
+                <S.PlayerBtnPlay theme={theme} onClick={togglePlay}>
                   {isPlaying ? (
-                    <S.PlayerBtnPlaySvg alt="pause">
+                    <S.PlayerBtnPlaySvg theme={theme} alt="pause">
                       <use xlinkHref="img/icon/sprite.svg#icon-pause" />
                     </S.PlayerBtnPlaySvg>
                   ) : (
-                    <S.PlayerBtnPlaySvg alt="play">
+                    <S.PlayerBtnPlaySvg theme={theme} alt="play">
                       <use xlinkHref="img/icon/sprite.svg#icon-play" />
                     </S.PlayerBtnPlaySvg>
                   )}
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext>
-                  <S.PlayerBtnNextSvg alt="next">
+                <S.PlayerBtnNext theme={theme}>
+                  <S.PlayerBtnNextSvg theme={theme} alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
-                <S.PlayerBtnRepeat>
-                  <S.PlayerBtnRepeatSvg alt="repeat">
+                <S.PlayerBtnRepeat theme={theme}>
+                  <S.PlayerBtnRepeatSvg theme={theme} alt="repeat">
                     <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
-                <S.PlayerBtnShuffle>
-                  <S.PlayerBtnShuffleSvg alt="shuffle">
+                <S.PlayerBtnShuffle theme={theme}>
+                  <S.PlayerBtnShuffleSvg theme={theme} alt="shuffle">
                     <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
@@ -126,11 +139,11 @@ export default function Player() {
 
               <S.PlayerTrackPlay>
                 <S.TrackPlayContain>
-                  <S.TrackPlayImage>
+                  <S.TrackPlayImage theme={theme}>
                     {isLoading ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackPlaySvg alt="music">
+                      <S.TrackPlaySvg theme={theme} alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note" />
                       </S.TrackPlaySvg>
                     )}
@@ -139,7 +152,7 @@ export default function Player() {
                     {isLoading ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackPlayAuthorLink href="http://">
+                      <S.TrackPlayAuthorLink theme={theme} href="http://">
                         Ты та...
                       </S.TrackPlayAuthorLink>
                     )}
@@ -148,7 +161,7 @@ export default function Player() {
                     {isLoading ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackPlayAlbumLink href="http://">
+                      <S.TrackPlayAlbumLink theme={theme} href="http://">
                         Баста
                       </S.TrackPlayAlbumLink>
                     )}
@@ -156,13 +169,13 @@ export default function Player() {
                 </S.TrackPlayContain>
 
                 <S.TrackPlayLikeDis>
-                  <S.TrackPlayLike>
-                    <S.TrackPlayLikeSvg alt="like">
+                  <S.TrackPlayLike theme={theme}>
+                    <S.TrackPlayLikeSvg theme={theme} alt="like">
                       <use xlinkHref="img/icon/sprite.svg#icon-like" />
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
-                  <S.TrackPlayDislike>
-                    <S.TrackPlayDislikeSvg alt="dislike">
+                  <S.TrackPlayDislike theme={theme}>
+                    <S.TrackPlayDislikeSvg theme={theme} alt="dislike">
                       <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>
@@ -170,22 +183,25 @@ export default function Player() {
               </S.PlayerTrackPlay>
             </S.BarPlayer>
 
-            <S.BarPlayerTimerBlock>
-              <S.PlayerTimer>{secondsToHms(currentTime)}</S.PlayerTimer>
-              /
+            <S.BarPlayerTimerBlock theme={theme}>
+              <S.PlayerTimer>{secondsToHms(currentTime)}</S.PlayerTimer>/
               <S.PlayerTimer>{secondsToHms(duration)}</S.PlayerTimer>
             </S.BarPlayerTimerBlock>
 
             <S.BarVolumeBlock>
               <S.VolumeContent>
                 <S.VolumeImage>
-                  <S.VolumeSvg alt="volume">
+                  <S.VolumeSvg theme={theme} alt="volume">
                     <use xlinkHref="img/icon/sprite.svg#icon-volume" />
                   </S.VolumeSvg>
                 </S.VolumeImage>
-                <S.VolumeProgress>
-                  <S.VolumeProgressLine type="range" name="range" />
-                </S.VolumeProgress>
+                <ProgressBar
+                  onChange={onvolumechange}
+                  percentage={volumeLevel}
+                  style={{
+                    '--ProgressBarHeight': 3,
+                  }}
+                />
               </S.VolumeContent>
             </S.BarVolumeBlock>
 

@@ -9,7 +9,7 @@ width: 100%;
 
 &::before {
     content: '';
-    background-color: #2e2e2e;
+    background-color: ${props => props.theme.lightGreyColor};
     width: 100%;
     height: var(--progress-bar-height);
     display: block;
@@ -41,7 +41,8 @@ export const ProgressBarThumb = styled.div`
 width: 16px;
 height: 16px;
 z-index: 3;
-background: #D9B6FF;
+background: ${props => props.theme.background};
+border: 3px solid ${props => props.theme.lightGreyColor};
 position: absolute;
 border-radius: 50%;
 pointer-events: none;
@@ -52,7 +53,7 @@ margin: auto 0;
 `
 export const ProgressBarInputRange = styled.input`
 -webkit-appearance: none;
-background-color: #2e2e2e;
+background-color: ${props => props.theme.lightGreyColor};
 height: var(--progress-bar-height);
 width: 100%;
 cursor: pointer;

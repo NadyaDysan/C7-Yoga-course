@@ -15,6 +15,7 @@ export const FilterTitle = styled.div`
   font-size: 16px;
   line-height: 24px;
   margin-right: 15px;
+  color: ${props => props.theme.color}
 `
 
 export const FilterRadioMainFieldset = styled.fieldset`
@@ -29,7 +30,7 @@ export const FilterButton = styled.button`
   font-family: 'StratosSkyeng', sans-serif;
   margin-right: 10px;
   background: none;
-  color: #ffffff;
+  color: ${props => props.theme.color};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +38,7 @@ export const FilterButton = styled.button`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #ffffff;
+  border: 1px solid ${props => props.theme.color};
   border-radius: 60px;
   padding: 6px 20px;
   &:hover {
@@ -54,12 +55,12 @@ export const FilterButton = styled.button`
 export const FilterPanelWrapper = styled.div`
   padding: 18px;
   position: absolute;
-  background: #313131;
+  background: ${props => props.theme.lighterGreyColor};
   border-radius: 12px;
   margin-top: 15px;
 `
 export const FilterPanel = styled.div`
-  color: #ffffff;
+  color: ${props => props.theme.color};
   height: 305px;
   width: 248px;
   gap: 28px;
@@ -73,7 +74,7 @@ export const FilterPanel = styled.div`
     width: 6px;
   }
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 300px #4b4949;
+    -webkit-box-shadow: inset 0 0 300px ${props => props.theme.lightGreyColor};
     -webkit-border-radius: 10px;
     border-radius: 10px;
     margin: 32px;
@@ -81,7 +82,7 @@ export const FilterPanel = styled.div`
   &::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #fff;
+    background: ${props => props.theme.color};
   }
   &::-webkit-scrollbar-corner {
     padding: 10px;
@@ -105,7 +106,7 @@ export const FilterRadioPanel = styled.div`
   margin-top: 10px;
   border-radius: 12px;
   gap: 14px;
-  background-color: #313131;
+  background-color: ${props => props.theme.lighterGreyColor};
 `
 export const FilterLabel = styled.label`
   cursor: pointer;

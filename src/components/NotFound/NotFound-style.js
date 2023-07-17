@@ -26,13 +26,13 @@ export const PageNotFoundSvg = styled.img`
   height: 50px;
   margin: 0.5em;
   fill: transparent;
-  stroke: #4e4e4e;
+  stroke: ${props => props.theme.lightGreyColor};
 `
 
 export const PageNotFoundDescription = styled.h3`
   font-size: 18px;
   font-weight: normal;
-  color: #4e4e4e;
+  color: ${props => props.theme.lightGreyColor};
   text-align: center;
 `
 export const ReturnHomeButton = styled.button`
@@ -42,7 +42,7 @@ export const ReturnHomeButton = styled.button`
   background-color: #580ea2;
   border: none;
   border-radius: 6px;
-  color: #ffffff;
+  color: #fff;
   margin-top: 34px;
   font-size: 16px;
 `
