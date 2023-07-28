@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
 import * as S from './Centerblock-style'
+import {useThemeContext} from '../ThemeSwitcher/ThemeSwitcher'
 
 const playlistI = [
   {
@@ -87,20 +88,23 @@ const playlistI = [
 export default function Centerblock({title}) {
   const [isLoading, setIsLoading] = useState(true)
 
+  const { theme } = useThemeContext();
+
   setTimeout(setIsLoading, 5000, false)
 
+
   return (
-    <S.MainCenterBlock>
+    <S.MainCenterBlock theme={theme}>
       <Search/>
-      <S.CenterBlockH2>{title}</S.CenterBlockH2>
+      <S.CenterBlockH2 theme={theme}>{title}</S.CenterBlockH2>
       <Filter />
       <S.CenterBlockContent>
         <S.ContentTitle>
-          <S.PlayListTitleCol>Трек</S.PlayListTitleCol>
-          <S.PlayListTitleCol>ИСПОЛНИТЕЛЬ</S.PlayListTitleCol>
-          <S.PlayListTitleCol>АЛЬБОМ</S.PlayListTitleCol>
-          <S.PlayListTitleCol>
-            <S.PlaylistTitleSvg alt="time">
+          <S.PlayListTitleCol theme={theme}>Трек</S.PlayListTitleCol>
+          <S.PlayListTitleCol theme={theme}>ИСПОЛНИТЕЛЬ</S.PlayListTitleCol>
+          <S.PlayListTitleCol theme={theme}>АЛЬБОМ</S.PlayListTitleCol>
+          <S.PlayListTitleCol theme={theme}>
+            <S.PlaylistTitleSvg theme={theme} alt="time">
               <use xlinkHref="img/icon/sprite.svg#icon-watch" />
             </S.PlaylistTitleSvg>
           </S.PlayListTitleCol>
@@ -110,11 +114,11 @@ export default function Centerblock({title}) {
             <S.PlaylistItem key={item.title}>
               <S.PlaylistTrack>
                 <S.TrackTitle>
-                  <S.TrackTitleImage>
+                  <S.TrackTitleImage theme={theme}>
                     {isLoading ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackTitleSvg alt="music">
+                      <S.TrackTitleSvg theme={theme} alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note" />
                       </S.TrackTitleSvg>
                     )}
@@ -123,9 +127,9 @@ export default function Centerblock({title}) {
                     {isLoading ? (
                       <Skeleton width="240px" height="16px" />
                     ) : (
-                      <S.TrackTitleLink href="http://">
+                      <S.TrackTitleLink theme={theme} href="http://">
                         {item.title} &nbsp;
-                        <S.TrackTitleSpan>{item.title_span}</S.TrackTitleSpan>
+                        <S.TrackTitleSpan theme={theme}>{item.title_span}</S.TrackTitleSpan>
                       </S.TrackTitleLink>
                     )}
                   </S.TrackTitleText>
@@ -134,7 +138,7 @@ export default function Centerblock({title}) {
                   {isLoading ? (
                     <Skeleton />
                   ) : (
-                    <S.TrackAuthorLink href="http://">
+                    <S.TrackAuthorLink theme={theme} href="http://">
                       {item.author}
                     </S.TrackAuthorLink>
                   )}
@@ -143,16 +147,16 @@ export default function Centerblock({title}) {
                   {isLoading ? (
                     <Skeleton />
                   ) : (
-                    <S.TrackAlbumLink href="http://">
+                    <S.TrackAlbumLink theme={theme} href="http://">
                       {item.album}
                     </S.TrackAlbumLink>
                   )}
                 </S.TrackAlbum>
                 <S.TrackTime>
-                  <S.TrackTimeSvg alt="time">
+                  <S.TrackTimeSvg theme={theme} alt="time">
                     <use xlinkHref="img/icon/sprite.svg#icon-like" />
                   </S.TrackTimeSvg>
-                  <S.TrackTimeText>{item.time}</S.TrackTimeText>
+                  <S.TrackTimeText theme={theme}>{item.time}</S.TrackTimeText>
                 </S.TrackTime>
               </S.PlaylistTrack>
             </S.PlaylistItem>

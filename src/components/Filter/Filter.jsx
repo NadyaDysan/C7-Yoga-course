@@ -1,5 +1,6 @@
 /* eslint-disable react/button-has-type */
 import { useEffect, useRef, useState } from 'react'
+import { useThemeContext } from '../ThemeSwitcher/ThemeSwitcher'
 
 import * as S from './Filter-style'
 
@@ -73,9 +74,11 @@ const years = [
 ]
 
 export default function Filter() {
+  const { theme } = useThemeContext()
+
   return (
     <S.CenterBlockFilter>
-      <S.FilterTitle>Искать по:</S.FilterTitle>
+      <S.FilterTitle theme={theme}>Искать по:</S.FilterTitle>
       <DropdownFilter title="исполнителю" list={singers} name="singer" />
       <RadioFilter title="году выпуска" list={years} name="year" />
       <DropdownFilter title="жанру" list={genres} name="genre" />
@@ -84,6 +87,8 @@ export default function Filter() {
 }
 
 function DropdownFilter(props) {
+  const { theme } = useThemeContext()
+
   const [isDropdownDisplayed, setIsDropdownDisplayed] = useState(false)
   const [selectedFilterItems, setSelectedFilterItems] = useState(
     props.list.reduce((obj, name) => ({ ...obj, [name.value]: false }), {})
@@ -107,6 +112,7 @@ function DropdownFilter(props) {
   return (
     <S.FilterDropdown ref={menuRef}>
       <S.FilterButton
+        theme={theme}
         onClick={() => setIsDropdownDisplayed((prevState) => !prevState)}
       >
         {numberOfFilterItemsSelected > 0
@@ -114,8 +120,8 @@ function DropdownFilter(props) {
           : `${props.title}`}
       </S.FilterButton>
       {isDropdownDisplayed && (
-        <S.FilterPanelWrapper>
-          <S.FilterPanel>
+        <S.FilterPanelWrapper theme={theme}>
+          <S.FilterPanel theme={theme}>
             {props.list.map((name) => (
               <S.FilterPanelItems
                 key={name.value}
@@ -145,6 +151,8 @@ function DropdownFilter(props) {
 }
 
 function RadioFilter(props) {
+  const { theme } = useThemeContext()
+
   const [isRadioDisplayed, setIsRadioDisplayed] = useState(false)
   const [selectedFilterItems, setSelectedFilterItems] = useState(
     props.list.reduce((obj, name) => ({ ...obj, [name.value]: false }), {})
@@ -165,12 +173,13 @@ function RadioFilter(props) {
   return (
     <S.FilterRadioMainFieldset ref={menuRef}>
       <S.FilterButton
+        theme={theme}
         onClick={() => setIsRadioDisplayed((prevState) => !prevState)}
       >
         {props.title}
       </S.FilterButton>
       {isRadioDisplayed && (
-        <S.FilterRadioPanel>
+        <S.FilterRadioPanel theme={theme}>
           {props.list.map((name) => (
             <S.FilterPanelItems
               key={name.value}

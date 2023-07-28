@@ -1,9 +1,9 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-// import { useState } from "react";
+import { useState } from 'react'
 import Cookies from 'js-cookie'
-import AppRoutes from "./routes";
-// import Enter from "./components/Enter/Enter";
+import AppRoutes from './routes'
+import { themes, ThemeContext } from './components/ThemeSwitcher/ThemeSwitcher'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -99,27 +99,30 @@ const StyledContainer = styled.div`
 `
 
 function App() {
-
   const userToken = Cookies.get('token') // => '1234'
+  const [currentTheme, setCurrentTheme] = useState(themes.light)
 
-  // const [user, setUser] = useState(null);
+  const toggleTheme = () => {
+    if (currentTheme === themes.dark) {
+      setCurrentTheme(themes.light)
+      return
+    }
 
-  // const handleLogin = () => setUser({ login: "token" });
-
-  // const handleLogout = () => setUser(null);
+    setCurrentTheme(themes.dark)
+  }
 
   return (
-    <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-      <GlobalStyle />
-      <StyledWrapper>
-        <StyledContainer>
-          {/* <Enter user={user}
-          onEnterButtonClick={user ? handleLogout : handleLogin}
-          /> */}
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
+      <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+        <GlobalStyle />
+        <StyledWrapper>
+          <StyledContainer>
             <AppRoutes user={userToken} />
-        </StyledContainer>
-      </StyledWrapper>
-    </SkeletonTheme>
+          </StyledContainer>
+        </StyledWrapper>
+      </SkeletonTheme>
+    </ThemeContext.Provider>
   )
 }
 

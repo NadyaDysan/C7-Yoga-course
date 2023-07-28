@@ -17,20 +17,19 @@ export const NavigationBurger = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 `
 
 export const NavigationMenu = styled.div`
   display: block;
   visibility: visible;
   position: absolute;
-  background-color: #181818;
-  width: 244px;
+  background-color: ${props => props.theme.background};
 `
 
 export const LogoImage = styled.img`
   width: 113.33px;
   height: 17px;
-  color: #181818;
 `
 
 export const BurgerLine = styled.span`
@@ -51,7 +50,7 @@ export const MenuItem = styled.li`
 `
 
 export const MenuLink = styled.a`
-  color: #ffffff;
+  color: ${props => props.theme.color};
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
@@ -62,6 +61,6 @@ export const FieldsetNavMenu = styled.fieldset`
 `
 export const MainNav = styled.nav`
 width: 244px;
-  background-color: #181818;
+  background-color: ${props => props.theme.background};
   padding: 20px 0 20px 36px;
 `

@@ -1,9 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import * as S from './NotFound-style'
+import {useThemeContext} from '../ThemeSwitcher/ThemeSwitcher'
+
 
 export default function NotFound() {
 
 const navigate = useNavigate()
+
+const {theme} = useThemeContext();
 
 
   return (
@@ -13,12 +17,12 @@ const navigate = useNavigate()
       </S.Title>
       <S.PageNotFound>
         Страница не найдена
-        <S.PageNotFoundSvg src="img/emoji/crying.png" alt="crying_emoji" />
+        <S.PageNotFoundSvg theme={theme} src="img/emoji/crying.png" alt="crying_emoji" />
       </S.PageNotFound>
-      <S.PageNotFoundDescription>
+      <S.PageNotFoundDescription theme={theme}>
         Возможно, она была удалена <br/> или перенесена на другой адрес
       </S.PageNotFoundDescription>
-      <S.ReturnHomeButton onClick={()=> {navigate('/main')}}>
+      <S.ReturnHomeButton theme={theme} onClick={()=> {navigate('/main')}}>
         Вернуться на главную
       </S.ReturnHomeButton>
     </S.NotFoundBlock>

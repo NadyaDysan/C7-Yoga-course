@@ -4,6 +4,7 @@ export const MainCenterBlock = styled.div`
   width: auto;
   flex-grow: 3;
   padding: 20px 40px 20px 111px;
+  background-color: ${props => props.theme.background};
 `
 
 export const CenterBlockH2 = styled.h2`
@@ -13,6 +14,7 @@ export const CenterBlockH2 = styled.h2`
   line-height: 72px;
   letter-spacing: -0.8px;
   margin-bottom: 45px;
+  color: ${props => props.theme.color};
 `
 
 export const CenterBlockContent = styled.div`
@@ -45,7 +47,7 @@ export const PlayListTitleCol = styled.div`
   font-size: 14px;
   line-height: 24px;
   letter-spacing: 2px;
-  color: #696969;
+  color: ${props => props.theme.lightGreyColor};
   text-transform: uppercase;
   &:nth-of-type(1) {
     width: 447px;
@@ -65,7 +67,7 @@ export const PlaylistTitleSvg = styled.svg`
   width: 12px;
   height: 12px;
   fill: transparent;
-  stroke: #696969;
+  stroke: ${props => props.theme.lightGreyColor};
 `
 export const PlaylistItem = styled.div`
   width: 100%;
@@ -93,7 +95,7 @@ export const TrackTitleImage = styled.div`
   width: 51px;
   height: 51px;
   padding: 16px;
-  background: #313131;
+  background: ${props => props.theme.lighterGreyColor};
   display: -webkit-box;
   display: -ms-flexbox;
   align-items: center;
@@ -104,22 +106,22 @@ export const TrackTitleSvg = styled.svg`
   width: 18px;
   height: 17px;
   fill: transparent;
-  stroke: #4e4e4e;
+  stroke: ${props => props.theme.lightGreyColor};
 `
 export const TrackTitleLink = styled.a`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
-`
+  color: ${props => props.theme.color};
+  `
 
 export const TrackTitleSpan = styled.span`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #4e4e4e;
+  color: ${props => props.theme.lightGreyColor};
 `
 export const TrackAuthor = styled.div`
   width: 321px;
@@ -132,9 +134,9 @@ export const TrackAuthorLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #ffffff;
   text-align: left;
-`
+  color: ${props => props.theme.color};
+  `
 
 export const TrackAlbum = styled.div`
   width: 245px;
@@ -145,7 +147,7 @@ export const TrackAlbumLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #696969;
+  color: ${props => props.theme.lightGreyColor};
 `
 
 export const TrackTimeSvg = styled.svg`
@@ -153,7 +155,7 @@ export const TrackTimeSvg = styled.svg`
   height: 12px;
   margin-right: 17px;
   fill: transparent;
-  stroke: #696969;
+  stroke: ${props => props.theme.lightGreyColor};
 `
 export const TrackTimeText = styled.span`
   font-style: normal;
@@ -161,7 +163,7 @@ export const TrackTimeText = styled.span`
   font-size: 16px;
   line-height: 24px;
   text-align: right;
-  color: #696969;
+  color: ${props => props.theme.lightGreyColor};
 `
 export const TrackTitleText = styled.div``
 export const TrackTime = styled.div``

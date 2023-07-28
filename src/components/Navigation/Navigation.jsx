@@ -2,23 +2,25 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useRef, useEffect } from 'react'
-import * as S from "./Navigation-styles";
+import * as S from './Navigation-styles'
+import ThemeSwitcher, {useThemeContext, themes} from '../ThemeSwitcher/ThemeSwitcher'
+
 
 const navMenu = [
-  {title: "Главное",
-    link: '/main',
-  },
-  {title: "Мой плейлист",
-    link: '/my_tracks/:id',
-  },
-  {title: "Войти",
-    link: '/',
-  },
+  { id: 0, title: 'Главное', link: '/main' },
+  { id: 1, title: 'Мой плейлист', link: '/my_tracks/:id' },
+  { id: 2, title: 'Войти', link: '/' },
 ]
+
+export const ChangeSignInTitle = () => {
+  navMenu[2].title = "Выйти";
+}
 
 export default function Navigation() {
   const [navBurgerOpen, setNavBurgerOpen] = useState(false)
   const toggleNavBurger = () => setNavBurgerOpen(!navBurgerOpen)
+  const { theme } = useThemeContext();
+
 
   const navMenuRef = useRef()
 
@@ -33,27 +35,28 @@ export default function Navigation() {
   }, [])
 
   return (
-    <S.MainNav>
+    <S.MainNav theme={theme}>
       <S.NavigationLogo>
-        <S.LogoImage src="img/logo.png" alt="logo" />
+      {theme === themes.dark ? 
+      (<S.LogoImage src="img/logo.png" alt="logo" />
+      ):(<S.LogoImage src="img/logo_black.png" alt="logo" />)}
       </S.NavigationLogo>
       <S.FieldsetNavMenu ref={navMenuRef}>
-      <S.NavigationBurger onClick={toggleNavBurger}>
-        <S.BurgerLine/>
-        <S.BurgerLine/>
-        <S.BurgerLine/>
-      </S.NavigationBurger>
-      {navBurgerOpen && (
-        <S.NavigationMenu>
-          {navMenu.map((item)=> (
-            <S.MenuItem key={item.title}>
-              <S.MenuLink href={item.link}>
-                {item.title}
-              </S.MenuLink>
-            </S.MenuItem>
-          ))}
-        </S.NavigationMenu>
-      )}
+        <S.NavigationBurger onClick={toggleNavBurger}>
+          <S.BurgerLine />
+          <S.BurgerLine />
+          <S.BurgerLine />
+        </S.NavigationBurger>
+        {navBurgerOpen && (
+          <S.NavigationMenu theme={theme}>
+            {navMenu.map((item) => (
+              <S.MenuItem key={item.id}>
+                <S.MenuLink theme={theme} href={item.link}>{item.title}</S.MenuLink>
+              </S.MenuItem>
+            ))}
+            <ThemeSwitcher />
+          </S.NavigationMenu>
+        )}
       </S.FieldsetNavMenu>
     </S.MainNav>
   )
