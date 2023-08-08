@@ -17,7 +17,7 @@ const {theme} = useThemeContext();
       </S.Title>
       <S.PageNotFound>
         Страница не найдена
-        <S.PageNotFoundSvg theme={theme} src="img/emoji/crying.png" alt="crying_emoji" />
+        <S.PageNotFoundSvg theme={theme} src="/img/emoji/crying.png" alt="crying_emoji" />
       </S.PageNotFound>
       <S.PageNotFoundDescription theme={theme}>
         Возможно, она была удалена <br/> или перенесена на другой адрес

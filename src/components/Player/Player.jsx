@@ -3,23 +3,21 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useState, useRef } from 'react'
 import ProgressBar from '../ProgressBar/ProgressBar'
-import {useThemeContext} from '../ThemeSwitcher/ThemeSwitcher'
-
+import { useThemeContext } from '../ThemeSwitcher/ThemeSwitcher'
 
 import * as S from './Player-style'
 
 export default function Player() {
   const [isLoading, setIsLoading] = useState(true)
-  setTimeout(setIsLoading, 5000, false)
+  setTimeout(setIsLoading, 3000, false)
 
-  const { theme } = useThemeContext();
+  const { theme } = useThemeContext()
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [percentage, setPercentage] = useState(0)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [volumeLevel, setVolumeLevel] = useState(50)
-
 
   const audioRef = useRef(null)
 
@@ -81,10 +79,9 @@ export default function Player() {
 
   onvolumechange = (e) => {
     const audio = audioRef.current
-    audio.volume = e.target.value / 100;
-    setVolumeLevel(audio.volume*100)
+    audio.volume = e.target.value / 100
+    setVolumeLevel(audio.volume * 100)
   }
-
 
   return (
     <>
@@ -106,33 +103,33 @@ export default function Player() {
               <S.PlayerControls>
                 <S.PlayerBtnPrev theme={theme}>
                   <S.PlayerBtnPrevSvg theme={theme} alt="prev">
-                    <use xlinkHref="img/icon/sprite.svg#icon-prev" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
                 </S.PlayerBtnPrev>
                 <S.PlayerBtnPlay theme={theme} onClick={togglePlay}>
                   {isPlaying ? (
                     <S.PlayerBtnPlaySvg theme={theme} alt="pause">
-                      <use xlinkHref="img/icon/sprite.svg#icon-pause" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-pause" />
                     </S.PlayerBtnPlaySvg>
                   ) : (
                     <S.PlayerBtnPlaySvg theme={theme} alt="play">
-                      <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-play" />
                     </S.PlayerBtnPlaySvg>
                   )}
                 </S.PlayerBtnPlay>
                 <S.PlayerBtnNext theme={theme}>
                   <S.PlayerBtnNextSvg theme={theme} alt="next">
-                    <use xlinkHref="img/icon/sprite.svg#icon-next" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
                 <S.PlayerBtnRepeat theme={theme}>
                   <S.PlayerBtnRepeatSvg theme={theme} alt="repeat">
-                    <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-repeat" />
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
                 <S.PlayerBtnShuffle theme={theme}>
                   <S.PlayerBtnShuffleSvg theme={theme} alt="shuffle">
-                    <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-shuffle" />
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
               </S.PlayerControls>
@@ -144,7 +141,7 @@ export default function Player() {
                       <Skeleton />
                     ) : (
                       <S.TrackPlaySvg theme={theme} alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                        <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                       </S.TrackPlaySvg>
                     )}
                   </S.TrackPlayImage>
@@ -171,12 +168,12 @@ export default function Player() {
                 <S.TrackPlayLikeDis>
                   <S.TrackPlayLike theme={theme}>
                     <S.TrackPlayLikeSvg theme={theme} alt="like">
-                      <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-like" />
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike theme={theme}>
                     <S.TrackPlayDislikeSvg theme={theme} alt="dislike">
-                      <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+                      <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>
                 </S.TrackPlayLikeDis>
@@ -192,19 +189,18 @@ export default function Player() {
               <S.VolumeContent>
                 <S.VolumeImage>
                   <S.VolumeSvg theme={theme} alt="volume">
-                    <use xlinkHref="img/icon/sprite.svg#icon-volume" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-volume" />
                   </S.VolumeSvg>
                 </S.VolumeImage>
                 <ProgressBar
                   onChange={onvolumechange}
                   percentage={volumeLevel}
                   style={{
-                    '--ProgressBarHeight': 3,
+                    '--progress-bar-height': '3px',
                   }}
                 />
               </S.VolumeContent>
             </S.BarVolumeBlock>
-
           </S.BarPlayerBlock>
         </S.BarContent>
       </S.Bar>

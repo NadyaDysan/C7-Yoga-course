@@ -1,9 +1,12 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-import { useState } from 'react'
-import Cookies from 'js-cookie'
+import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import AppRoutes from './routes'
 import { themes, ThemeContext } from './components/ThemeSwitcher/ThemeSwitcher'
+import { isLoggedInSelector } from './redux/store'
+import { useRefreshMutation } from './redux/api/userApi'
+import { getRefresh, isRefreshExists } from './redux/features/authSlice'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -99,8 +102,24 @@ const StyledContainer = styled.div`
 `
 
 function App() {
-  const userToken = Cookies.get('token') // => '1234'
-  const [currentTheme, setCurrentTheme] = useState(themes.light)
+  const [currentTheme, setCurrentTheme] = useState(themes.dark)
+
+  const isLoggedIn = useSelector(isLoggedInSelector)
+
+  const [refresh, { isLoading: isRefreshFetching, isError: isRefreshError }] =
+    useRefreshMutation()
+
+  const handleRefreshAccess = () => {
+    if (isRefreshExists()) {
+      refresh({ refresh: getRefresh() })
+    }
+  }
+
+  useEffect(() => {
+    handleRefreshAccess()
+    const timer = setInterval(handleRefreshAccess, 50000)
+    return () => clearInterval(timer)
+  }, [])
 
   const toggleTheme = () => {
     if (currentTheme === themes.dark) {
@@ -111,17 +130,25 @@ function App() {
     setCurrentTheme(themes.dark)
   }
 
+  const content = (
+    <>
+      <GlobalStyle />
+      <StyledWrapper>
+        <StyledContainer>
+          <AppRoutes isAuth={isLoggedIn} />
+        </StyledContainer>
+      </StyledWrapper>
+    </>
+  )
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
-      <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-        <GlobalStyle />
-        <StyledWrapper>
-          <StyledContainer>
-            <AppRoutes user={userToken} />
-          </StyledContainer>
-        </StyledWrapper>
+      {(!isLoggedIn || isRefreshFetching) && !isRefreshError && isRefreshExists() ? 
+      (<SkeletonTheme baseColor="#313131" highlightColor="#525252">
+        {content}
       </SkeletonTheme>
+      ) : ({content})}
     </ThemeContext.Provider>
   )
 }

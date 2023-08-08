@@ -30,7 +30,6 @@ export const useThemeContext = () => {
 
   if (!theme) return theme.dark
 
-  // return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
   return theme
 }
 
@@ -49,9 +48,9 @@ export default function ThemeSwitcher() {
       >
         <title id="button-label">Theme-Switcher</title>
         {theme === themes.dark ? (
-          <use xlinkHref="img/icon/sprite.svg#theme-light" />
+          <use xlinkHref="/img/icon/sprite.svg#theme-light" />
         ) : (
-          <use xlinkHref="img/icon/sprite.svg#theme-dark" />
+          <use xlinkHref="/img/icon/sprite.svg#theme-dark" />
         )}
       </S.ThemeSwitcherIconSvg>
     </S.ThemeSwitcherButton>

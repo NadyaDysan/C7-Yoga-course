@@ -1,6 +1,7 @@
+import {Link} from "react-router-dom";
 import styled from 'styled-components/macro'
 
-export const NavigationLogo = styled.div`
+export const NavigationLogo = styled(Link)`
   width: 113.33px;
   height: 43px;
   padding: 13px 0 13px 0;
@@ -30,6 +31,7 @@ export const NavigationMenu = styled.div`
 export const LogoImage = styled.img`
   width: 113.33px;
   height: 17px;
+  cursor: pointer;
 `
 
 export const BurgerLine = styled.span`
