@@ -4,6 +4,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import * as S from './Error-list-style'
+import { hideError } from '../../redux/features/authSlice'
+
 
 const ErrorItem = ({ id, error, message, isHidden = false, onHide = undefined }) => {
     const [hidden, setHidden] = useState(isHidden)
@@ -16,20 +18,20 @@ const ErrorItem = ({ id, error, message, isHidden = false, onHide = undefined })
     }
   
     return (
-      <S.ErrorItem isHidden={hidden} onClick={handleClose}>
-        <p>{error}</p>
+      <S.ErrorItem isHidden={hidden}>
+        <p>{error}:</p>
         <p>{message}</p>
-        <p>X</p>
+        <S.ErrorClose onClick={handleClose}>❌</S.ErrorClose>
       </S.ErrorItem>
     )
   }
 
-const ErrorList = ({ reducer, selector }) => {
+const ErrorList = () => {
   const dispatch = useDispatch()
-  const errors = useSelector(selector)
+  const errors = useSelector((state)=>state.auth.errors)
 
   const handleOnHide = (id) => {
-    dispatch(reducer(id))
+    dispatch(hideError(id))
   }
 
   if ( !errors || errors.length === 0 || !errors.length) {
