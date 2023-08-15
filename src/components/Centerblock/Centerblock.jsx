@@ -1,8 +1,6 @@
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useState, useEffect } from 'react'
-import Filter from '../Filter/Filter'
-import Search from '../Search/Search'
 import * as S from './Centerblock-style'
 import { useThemeContext } from '../ThemeSwitcher/ThemeSwitcher'
 import {
@@ -19,6 +17,8 @@ export const toMMSS = (seconds) => {
 
 export default function Centerblock({
   title,
+  search,
+  filter,
   data,
   onSelectTrack,
   selectedTrack,
@@ -41,19 +41,18 @@ export default function Centerblock({
   }
 
   const handleOnLikeClick = (item) => {
-    const { id } = item
-    if (favoriteSet.has(id)) {
-      deleteFavorite(id)
+    if (favoriteSet.has(item.id)) {
+      deleteFavorite(item.id)
     } else {
-      addFavorite(id)
+      addFavorite(item.id)
     }
   }
 
   return (
     <S.MainCenterBlock theme={theme}>
-      <Search />
+      {search}
       <S.CenterBlockH2 theme={theme}>{title}</S.CenterBlockH2>
-      <Filter />
+      {filter}
       <S.CenterBlockContent>
         <S.ContentTitle>
           <S.PlayListTitleCol theme={theme}>Трек</S.PlayListTitleCol>
@@ -120,17 +119,17 @@ export default function Centerblock({
                     )}
                   </S.TrackAlbum>
                   <S.TrackTime>
-                    <S.TrackTimeSvg
+                    <S.TrackLikeSvg
                       theme={theme}
-                      alt="time"
+                      alt="like"
                       active={favoriteSet.has(item.id) ? 'true' : undefined}
                       onClick={(event) => {
-                        handleOnLikeClick()
+                        handleOnLikeClick(item)
                         event.stopPropagation()
                       }}
                     >
                       <use xlinkHref="/img/icon/sprite.svg#icon-like" />
-                    </S.TrackTimeSvg>
+                    </S.TrackLikeSvg>
                     <S.TrackTimeText theme={theme}>
                       {toMMSS(item.duration_in_seconds)}
                     </S.TrackTimeText>

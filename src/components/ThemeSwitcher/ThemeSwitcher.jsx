@@ -9,6 +9,7 @@ export const themes = {
     lighterGreyColor: '#F6F4F4',
     BtnIconSvg1: '#B1B1B1',
     BtnIconSvg2: '#707070',
+    HeartIconActiveFill: '#ad61ff',
   },
   dark: {
     color: '#fff',
@@ -17,6 +18,7 @@ export const themes = {
     lighterGreyColor: '#313131',
     BtnIconSvg1: '#D9D9D9',
     BtnIconSvg2: '#696969',
+    HeartIconActiveFill: '#ad61ff',
   },
 }
 

@@ -150,12 +150,19 @@ export const TrackAlbumLink = styled.a`
   color: ${props => props.theme.lightGreyColor};
 `
 
-export const TrackTimeSvg = styled.svg`
+export const TrackLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   margin-right: 17px;
-  fill: transparent;
-  stroke: ${props => props.theme.lightGreyColor};
+  cursor: pointer;
+  fill: ${(props) =>
+    props.active
+      ? props.theme.HeartIconActiveFill
+      : 'transparent'};
+  stroke: ${(props) =>
+    props.active
+      ? props.theme.color
+      : props.theme.lightGreyColor};
 `
 export const TrackTimeText = styled.span`
   font-style: normal;

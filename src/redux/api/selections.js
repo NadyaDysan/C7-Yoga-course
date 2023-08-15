@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { publicQuery } from './authApi'
+import { publicQuery } from './BASE_URL'
 
 export const selectionsApi = createApi({
   reducerPath: 'selections',

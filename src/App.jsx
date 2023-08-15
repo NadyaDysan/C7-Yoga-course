@@ -1,12 +1,12 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
 import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import AppRoutes from './routes'
 import { themes, ThemeContext } from './components/ThemeSwitcher/ThemeSwitcher'
 import { isLoggedInSelector } from './redux/store'
 import { useRefreshMutation } from './redux/api/userApi'
-import { getRefresh, isRefreshExists } from './redux/features/authSlice'
+import { getRefresh, isRefreshExists } from './redux/features/refresh'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -130,25 +130,39 @@ function App() {
     setCurrentTheme(themes.dark)
   }
 
-  const content = (
-    <>
+  // const content = (
+  //   <>
+  //     <GlobalStyle />
+  //     <StyledWrapper>
+  //       <StyledContainer>
+  //         <AppRoutes isAuth={isLoggedIn} />
+  //       </StyledContainer>
+  //     </StyledWrapper>
+  //   </>
+  // )
+  
+  const themeMemo = useMemo(() => ({ theme: currentTheme, toggleTheme }), []);
+
+  return (
+    <ThemeContext.Provider value={themeMemo}>
+      {(!isLoggedIn || isRefreshFetching) && !isRefreshError && isRefreshExists() ? 
+      (<SkeletonTheme baseColor="#313131" highlightColor="#525252">
+        <GlobalStyle />
+      <StyledWrapper>
+        <StyledContainer>
+          <AppRoutes isAuth={isLoggedIn} />
+        </StyledContainer>
+      </StyledWrapper>
+      </SkeletonTheme>
+      ) : 
+      <>
       <GlobalStyle />
       <StyledWrapper>
         <StyledContainer>
           <AppRoutes isAuth={isLoggedIn} />
         </StyledContainer>
       </StyledWrapper>
-    </>
-  )
-
-  return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
-      {(!isLoggedIn || isRefreshFetching) && !isRefreshError && isRefreshExists() ? 
-      (<SkeletonTheme baseColor="#313131" highlightColor="#525252">
-        {content}
-      </SkeletonTheme>
-      ) : ({content})}
+      </>}
     </ThemeContext.Provider>
   )
 }

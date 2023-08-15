@@ -1,8 +1,9 @@
-/* eslint-disable import/no-cycle */
-import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
-import { BASE_URL } from './BASE_URL'
-import { getRefresh, logOut, tokenReceived } from '../features/authSlice'
+import { fetchBaseQuery } from '@reduxjs/toolkit/query'
+import { BASE_URL, publicQuery} from './BASE_URL'
+import { logOut, tokenReceived } from '../features/authSlice'
+import { getRefresh } from '../features/refresh'
+
 
 const mutex = new Mutex()
 
@@ -12,9 +13,7 @@ const prepareHeaders = (headers, { getState }) => {
   return headers
 }
 
-const fetchProtectedQuery = fetchBaseQuery({ baseUrl: BASE_URL, prepareHeaders })
-
-export const publicQuery = fetchBaseQuery({ baseUrl: BASE_URL })
+export const fetchProtectedQuery = fetchBaseQuery({ baseUrl: BASE_URL, prepareHeaders })
 
 export const protectedQuery = async (args, api, extraOptions) => {
   await mutex.waitForUnlock()

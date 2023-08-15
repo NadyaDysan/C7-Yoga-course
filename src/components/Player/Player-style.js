@@ -186,32 +186,36 @@ export const TrackPlayLike = styled.div`
   ${BtnIcon}
   padding: 5px;
   cursor: pointer;
-  &:active svg {
-    fill: #ad61ff;
-    stroke: ${props => props.theme.color};
-  }
+  
 `
 export const TrackPlayDislike = styled.div`
   ${BtnIcon}
   padding: 5px;
   margin-left: 28.5px;
-  &:active svg {
-    fill: #ad61ff;
-    stroke: ${props => props.theme.color};
-    cursor: pointer;
-  }
 `
 export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
-  fill: transparent;
-  stroke: ${props => props.theme.BtnIconSvg2};
+  fill: ${(props) =>
+    props.active
+      ? props.theme.HeartIconActiveFill
+      : 'transparent'};
+  stroke: ${(props) =>
+    props.active
+      ? props.theme.color
+      : props.theme.lightGreyColor};
 `
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
-  fill: transparent;
-  stroke: ${props => props.theme.BtnIconSvg2};
+  fill: ${(props) =>
+    props.active
+      ? props.theme.HeartIconActiveFill
+      : 'transparent'};
+  stroke: ${(props) =>
+    props.active
+      ? props.theme.color
+      : props.theme.lightGreyColor};
 `
 export const BarPlayerTimerBlock = styled.div`
   display: flex;

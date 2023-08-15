@@ -1,27 +1,15 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-plusplus */
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 import { userApi } from '../api/userApi'
+import { storeRefresh, deleteRefresh } from './refresh'
 
 const initialState = {
   access: '',
   isLoggedIn: false,
   errors: []
 }
-
-export const storeRefresh = (refresh) => {
-    localStorage.setItem('refresh', refresh)
-  }
-  
-export const deleteRefresh = () => {
-    localStorage.removeItem('refresh')
-  }
-  
-export const getRefresh = () => localStorage.getItem('refresh') || ''
-
-export const isRefreshExists = () => Boolean(getRefresh())
 
 
 const storeTokens = (state, { payload }) => {
