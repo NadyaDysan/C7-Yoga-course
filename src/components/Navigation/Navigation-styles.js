@@ -26,7 +26,7 @@ export const NavigationMenu = styled.div`
   visibility: visible;
   position: absolute;
   background-color: ${props => props.theme.background};
-`
+  `
 
 export const LogoImage = styled.img`
   width: 113.33px;
@@ -60,6 +60,7 @@ export const MenuLink = styled.a`
 export const FieldsetNavMenu = styled.fieldset`
   border: none;
   width: 24px;
+  transition: left 0.3s linear;
 `
 export const MainNav = styled.nav`
 width: 244px;

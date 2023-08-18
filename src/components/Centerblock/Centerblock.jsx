@@ -67,16 +67,15 @@ export default function Centerblock({
         <S.ContentPlaylist>
           {data &&
             data.map((item) => (
-              <S.PlaylistItem
+              <S.PlaylistItem>
+                <S.PlaylistTrack 
                 key={item.id}
                 selected={
                   selectedTrack && selectedTrack.id === item.id
                     ? true
                     : undefined
                 }
-                onClick={() => handleOnItemClick}
-              >
-                <S.PlaylistTrack>
+                onClick={() => handleOnItemClick(item)}>
                   <S.TrackTitle>
                     <S.TrackTitleImage theme={theme}>
                       {isFetching ? (
@@ -91,7 +90,7 @@ export default function Centerblock({
                       {isFetching ? (
                         <Skeleton width="240px" height="16px" />
                       ) : (
-                        <S.TrackTitleLink theme={theme} href="http://">
+                        <S.TrackTitleLink theme={theme}>
                           {item.name} &nbsp;
                           <S.TrackTitleSpan theme={theme}>
                             {item.extraName}
@@ -104,7 +103,7 @@ export default function Centerblock({
                     {isFetching ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackAuthorLink theme={theme} href="http://">
+                      <S.TrackAuthorLink theme={theme}>
                         {item.author}
                       </S.TrackAuthorLink>
                     )}
@@ -113,7 +112,7 @@ export default function Centerblock({
                     {isFetching ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackAlbumLink theme={theme} href="http://">
+                      <S.TrackAlbumLink theme={theme}>
                         {item.album}
                       </S.TrackAlbumLink>
                     )}

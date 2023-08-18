@@ -112,7 +112,7 @@ function DropdownFilter({ list, title, filter, setFilter }) {
         onClick={() => setIsDropdownDisplayed((prevState) => !prevState)}
       >
         {numberOfFilterItemsSelected > 0
-          ? `${title} ${numberOfFilterItemsSelected}`
+          ? `${title}` (<S.FilterButtonNumber>`${numberOfFilterItemsSelected}`</S.FilterButtonNumber>)
           : `${title}`}
       </S.FilterButton>
       {isDropdownDisplayed && (

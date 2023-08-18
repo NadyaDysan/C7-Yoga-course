@@ -87,11 +87,11 @@ export default function Registration() {
   }
 
   if (isTokenSuccess) {
-    return <Navigate to="/main" />
+    return <Navigate to="/" />
   }
 
   if (isLoggedIn) {
-    return <Navigate to="/main" />
+    return <Navigate to="/" />
   }
 
   return (

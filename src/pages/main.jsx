@@ -23,6 +23,28 @@ export default function Main() {
   const [searchedData, setSearchedData] = useState(null)
   const [track, setTrack] = useState(null)
 
+  const handleChangeTrack = (event) => {
+    const { eventName, isShuffle } = event
+    if (searchedData.length === 0) return
+    if (isShuffle) {
+      const randomIndex = Math.floor(Math.random() * searchedData.length)
+      setTrack(searchedData[randomIndex])
+      return
+    }
+    if (eventName === 'next') {
+      const nextIndex = (searchedData.indexOf(track) + 1) % searchedData.length
+      setTrack(searchedData[nextIndex])
+      return
+    }
+    if (eventName === 'prev') {
+      const prevIndex = (searchedData.indexOf(track) - 1) % searchedData.length
+      setTrack(searchedData[prevIndex < 0 ? searchedData.length - 1 : prevIndex])
+      return
+    }
+
+    console.error('Unknown event name')
+  }
+
   useEffect(() => {
     if (!filteredData) return
     if (!search) {
@@ -59,6 +81,7 @@ export default function Main() {
   const filterButtons = <Filter data={tracks} updateFilter={updateFilter} />
   const searchInput = <Search updateSearch={updateSearch} />
 
+  if (!track) {
   return (
     
     <main
@@ -78,7 +101,28 @@ export default function Main() {
         selectedTrack={track}
       />
       <Sidebar isFetching={isTracksLoading} />
-      <Player />
+    </main>
+  )}
+
+  return (
+    <main
+      style={{
+        backgroundColor: theme.background,
+        color: theme.color,
+      }}
+    >
+      <Navigation />
+      <Centerblock
+        title="Треки"
+        search={searchInput}
+        filter={filterButtons}
+        data={searchedData || []}
+        isFetching={isTracksLoading}
+        onSelectTrack={setTrack}
+        selectedTrack={track}
+      />
+      <Sidebar isFetching={isTracksLoading} />
+      <Player track={track} changeTrack={handleChangeTrack} />
     </main>
   )
 }

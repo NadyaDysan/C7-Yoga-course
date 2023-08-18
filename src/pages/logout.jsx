@@ -8,5 +8,5 @@ export default function Logout() {
   useState(() => {
     dispatch(logOut())
   })
-  return <Navigate to="/" />
+  return <Navigate to="/login" />
 }

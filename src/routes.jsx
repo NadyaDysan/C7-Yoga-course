@@ -17,16 +17,17 @@ export default function AppRoutes({ isAuth }) {
   return (
     <ErrorBoundary FallbackComponent={LoadingError} onReset={() => window.location.reload(false)}>
     <Routes>
-      <Route path="/" element={<RegistrationForm />} />
+      <Route path="/login" element={<RegistrationForm />} />
       <Route path="/logout" element={<Logout />} />
-      <Route element={<ProtectedRoute isAllowed={isAuth} redirectTo="/" />}>
-        <Route path="/main" element={<Main />} />
+      <Route element={<ProtectedRoute isAllowed={isAuth} redirectTo="/login" />}>
+        <Route path="/" element={<Main />} />
         <Route path="/day_playlist/:id" element={<DayPlaylist />} />
         <Route path="/100_tracks/:id" element={<HundredTracks />} />
         <Route path="/indy/:id" element={<Indy />} />
         <Route path="/my_tracks/:id" element={<MyTracks />} />
+        <Route path="*" element={<NotFoundPage />} /> 
       </Route>
-    <Route path="*" element={<NotFoundPage />} /> 
+    <Route path="*" element={<RegistrationForm />} /> 
     </Routes>
     </ErrorBoundary>
   )

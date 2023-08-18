@@ -13,7 +13,7 @@ export const BarContent = styled.div`
   display: -ms-flexbox;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.background};
+  background-color: ${(props) => props.theme.background};
 `
 
 export const BarPlayerBlock = styled.div`
@@ -42,18 +42,20 @@ export const PlayerControls = styled.div`
 `
 
 const BtnIcon = css`
-fill: ${props => props.theme.BtnIconSvg1};
-stroke: ${props => props.theme.BtnIconSvg1};
-
-  &:hover svg {
-    fill: ${props => props.theme.BtnIconSvg2};
-    stroke: ${props => props.theme.BtnIconSvg2};
-    cursor: pointer;
-  }
+  fill: ${(props) => props.theme.BtnIconSvg1};
+  stroke: ${(props) => props.theme.BtnIconSvg1};
+  cursor: pointer;
   &:active svg {
-    fill: ${props => props.theme.BtnIconSvg1};
-    stroke: ${props => props.theme.BtnIconSvg1};
-    cursor: pointer;
+    fill: ${(props) => props.theme.HeartIconActiveFill};
+    stroke: ${(props) => props.theme.HeartIconActiveFill};
+  }
+  &:not(.active):hover svg {
+    fill: ${(props) => props.theme.BtnIconSvg2};
+    stroke: ${(props) => props.theme.BtnIconSvg2};
+  }
+  &:hover:active svg {
+    fill: ${(props) => props.theme.HeartIconActiveFill};
+    stroke: ${(props) => props.theme.HeartIconActiveFill};
   }
 `
 
@@ -79,7 +81,7 @@ export const PlayerBtnPlay = styled.div`
   margin-right: 23px;
 `
 export const PlayerBtnPlaySvg = styled.svg`
-${BtnIcon}
+  ${BtnIcon}
   width: 22px;
   height: 20px;
 `
@@ -89,23 +91,27 @@ export const PlayerBtnNext = styled.div`
   margin-right: 28px;
 `
 export const PlayerBtnNextSvg = styled.svg`
-${BtnIcon}
+  ${BtnIcon}
   width: 15px;
   height: 14px;
   fill: inherit;
 `
 export const PlayerBtnRepeat = styled.div`
-  ${BtnIcon}
   ${PlayerBtns}
   margin-right: 24px;
 `
 export const PlayerBtnRepeatSvg = styled.svg`
-${BtnIcon}
   width: 18px;
   height: 12px;
+  fill: ${(props) =>
+    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
+  stroke: ${(props) =>
+    props.active
+      ? props.theme.HeartIconActiveFill
+      : props.theme.lightGreyColor};
+  cursor: pointer;
 `
 export const PlayerBtnShuffle = styled.div`
-  ${BtnIcon}
   ${PlayerBtns}
   display: -webkit-box;
   display: -ms-flexbox;
@@ -113,9 +119,15 @@ export const PlayerBtnShuffle = styled.div`
   align-items: center;
 `
 export const PlayerBtnShuffleSvg = styled.svg`
-${BtnIcon}
   width: 19px;
   height: 12px;
+  fill: ${(props) =>
+    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
+  stroke: ${(props) =>
+    props.active
+      ? props.theme.HeartIconActiveFill
+      : props.theme.lightGreyColor};
+  cursor: pointer;
 `
 
 export const PlayerTrackPlay = styled.div`
@@ -137,7 +149,7 @@ export const TrackPlayImage = styled.div`
   width: 51px;
   height: 51px;
   padding: 16px;
-  background-color: ${props => props.theme.lighterGreyColor};
+  background-color: ${(props) => props.theme.lighterGreyColor};
   display: -webkit-box;
   display: -ms-flexbox;
   align-items: center;
@@ -149,30 +161,30 @@ export const TrackPlaySvg = styled.svg`
   width: 18px;
   height: 17px;
   fill: transparent;
-  stroke: ${props => props.theme.lightGreyColor};
+  stroke: ${(props) => props.theme.lightGreyColor};
 `
 export const TrackPlayAuthor = styled.div`
   grid-area: author;
   min-width: 49px;
 `
-export const TrackPlayAuthorLink = styled.a`
+export const TrackPlayAuthorLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: ${props => props.theme.color};
+  color: ${(props) => props.theme.color};
   white-space: nowrap;
 `
 export const TrackPlayAlbum = styled.div`
   grid-area: album;
   min-width: 49px;
 `
-export const TrackPlayAlbumLink = styled.a`
+export const TrackPlayAlbumLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
-  color: ${props => props.theme.color};
+  color: ${(props) => props.theme.color};
 `
 export const TrackPlayLikeDis = styled.div`
   display: -webkit-box;
@@ -186,7 +198,6 @@ export const TrackPlayLike = styled.div`
   ${BtnIcon}
   padding: 5px;
   cursor: pointer;
-  
 `
 export const TrackPlayDislike = styled.div`
   ${BtnIcon}
@@ -197,25 +208,17 @@ export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   fill: ${(props) =>
-    props.active
-      ? props.theme.HeartIconActiveFill
-      : 'transparent'};
+    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
   stroke: ${(props) =>
-    props.active
-      ? props.theme.color
-      : props.theme.lightGreyColor};
+    props.active ? props.theme.color : props.theme.lightGreyColor};
 `
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
   fill: ${(props) =>
-    props.active
-      ? props.theme.HeartIconActiveFill
-      : 'transparent'};
+    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
   stroke: ${(props) =>
-    props.active
-      ? props.theme.color
-      : props.theme.lightGreyColor};
+    props.active ? props.theme.color : props.theme.lightGreyColor};
 `
 export const BarPlayerTimerBlock = styled.div`
   display: flex;
@@ -224,7 +227,7 @@ export const BarPlayerTimerBlock = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   width: 138px;
-  color: ${props => props.theme.color}
+  color: ${(props) => props.theme.color};
 `
 export const PlayerTimer = styled.div``
 
@@ -245,17 +248,18 @@ export const VolumeImage = styled.div`
 export const VolumeSvg = styled.svg`
   width: 13px;
   height: 18px;
-  fill: ${props => props.theme.lightGreyColor};
+  fill: ${(props) => props.theme.lightGreyColor};
 `
 export const VolumeProgress = styled.div`
   width: 109px;
   cursor: pointer;
 `
-// export const VolumeProgressLine = styled.input`
-//   width: 109px;
-//   cursor: pointer;
-//   accent-color: ${props => props.theme.color};
-// `
+export const VolumeProgressLine = styled.input`
+  width: 109px;
+  cursor: pointer;
+  accent-color: ${(props) => props.theme.color};
+`
+
 export const BarVolumeBlock = styled.div`
   width: auto;
   display: -webkit-box;

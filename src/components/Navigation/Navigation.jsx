@@ -10,7 +10,7 @@ import ThemeSwitcher, {
 
 
 const navMenu = [
-  { id: 0, title: 'Главное', link: '/main' },
+  { id: 0, title: 'Главное', link: '/' },
   { id: 1, title: 'Мой плейлист', link: '/my_tracks/:id' },
   { id: 2, title: 'Выйти', link: '/logout' },
 ]
@@ -35,11 +35,11 @@ export default function Navigation() {
 
   return (
     <S.MainNav theme={theme}>
-      <S.NavigationLogo to="/main">
+      <S.NavigationLogo to="/">
         {theme === themes.dark ? (
-          <S.LogoImage src="/img/logo.png" alt="logo" href="/main" />
+          <S.LogoImage src="/img/logo.png" alt="logo" href="/" />
         ) : (
-          <S.LogoImage src="/img/logo_black.png" alt="logo" href="/main" />
+          <S.LogoImage src="/img/logo_black.png" alt="logo" href="/" />
         )}
       </S.NavigationLogo>
       <S.FieldsetNavMenu ref={navMenuRef}>

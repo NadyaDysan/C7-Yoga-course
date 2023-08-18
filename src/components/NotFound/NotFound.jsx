@@ -22,7 +22,7 @@ const {theme} = useThemeContext();
       <S.PageNotFoundDescription theme={theme}>
         Возможно, она была удалена <br/> или перенесена на другой адрес
       </S.PageNotFoundDescription>
-      <S.ReturnHomeButton theme={theme} onClick={()=> {navigate('/main')}}>
+      <S.ReturnHomeButton theme={theme} onClick={()=> {navigate('/')}}>
         Вернуться на главную
       </S.ReturnHomeButton>
     </S.NotFoundBlock>

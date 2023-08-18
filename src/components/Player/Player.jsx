@@ -1,23 +1,50 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import {
+  useAddFavoriteMutation,
+  useDeleteFavoriteMutation,
+  useGetFavoritesQuery,
+} from '../../redux/api/favorites'
 import ProgressBar from '../ProgressBar/ProgressBar'
 import { useThemeContext } from '../ThemeSwitcher/ThemeSwitcher'
 
 import * as S from './Player-style'
 
-export default function Player() {
-  const [isLoading, setIsLoading] = useState(true)
-  setTimeout(setIsLoading, 3000, false)
+const PLAYER_ITEM_NAME = 'player'
+const initialSettings = {
+  volumeLevel: 100,
+  isRepeat: true,
+  isShuffle: true,
+}
 
+const getPlayerSettings = () => {
+  const settings = localStorage.getItem(PLAYER_ITEM_NAME)
+  return settings ? JSON.parse(settings) : initialSettings
+}
+
+const storePlayerSettings = (settings) => {
+  localStorage.setItem(PLAYER_ITEM_NAME, JSON.stringify(settings))
+}
+
+export default function Player({ track, changeTrack }) {
   const { theme } = useThemeContext()
 
+  const [isCanPlay, setIsCanPlay] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [percentage, setPercentage] = useState(0)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
-  const [volumeLevel, setVolumeLevel] = useState(50)
+  const [volumeLevel, setVolumeLevel] = useState(100)
+
+  const [isRepeat, setIsRepeat] = useState(undefined)
+  const [isShuffle, setIsShuffle] = useState(undefined)
+  const { data: favorites } = useGetFavoritesQuery()
+  const [addFavorite] = useAddFavoriteMutation()
+  const [deleteFavorite] = useDeleteFavoriteMutation()
+  const [favoriteSet, setFavoriteSet] = useState(new Set())
+  const [activeClass, setActiveClass] = useState(false)
 
   const audioRef = useRef(null)
 
@@ -83,6 +110,98 @@ export default function Player() {
     setVolumeLevel(audio.volume * 100)
   }
 
+  const handleOnLikeClick = (item) => {
+    const { id } = item
+    if (!favoriteSet.has(id)) {
+      addFavorite(id)
+    }
+  }
+
+  const handleOnDislikeClick = (item) => {
+    const { id } = item
+    if (favoriteSet.has(id)) {
+      deleteFavorite(id)
+    }
+    setActiveClass(id)
+  }
+
+  const handleChangeTrack = (eventName) => {
+    const eventData = {
+      eventName,
+      isShuffle,
+    }
+    if (changeTrack) changeTrack(eventData)
+  }
+
+  const handleEnded = () => {
+    if (isRepeat) {
+      const audio = audioRef.current
+      audio.currentTime = 0
+      audio.play()
+      return
+    }
+    handleChangeTrack('ended')
+  }
+
+  const handleCanPlayThrough = () => {
+    setIsCanPlay(true)
+  }
+
+
+  useEffect(() => {
+    if (!track) return
+    const audio = audioRef.current
+    setDuration(0)
+    setIsCanPlay(false)
+    audio.addEventListener('canplaythrough', handleCanPlayThrough)
+    audio.addEventListener('timeupdate', getCurrDuration)
+    audio.addEventListener('play', setIsPlaying)
+    audio.addEventListener('ended', handleEnded)
+    audio.play()
+    // eslint-disable-next-line consistent-return
+    return () => {
+      audio.removeEventListener('canplaythrough', handleCanPlayThrough)
+      audio.removeEventListener('timeupdate', getCurrDuration)
+      audio.removeEventListener('play', setIsPlaying)
+      audio.removeEventListener('ended', handleEnded)
+    }
+  }, [track])
+
+  const storeSettings = () => {
+    storePlayerSettings({
+      ...getPlayerSettings(),
+      volumeLevel,
+      isRepeat,
+      isShuffle,
+    })
+  }
+
+  useEffect(() => {
+    if (volumeLevel === undefined) return
+    storeSettings()
+  }, [volumeLevel])
+  useEffect(() => {
+    if (isRepeat === undefined) return
+    storeSettings()
+  }, [isRepeat])
+  useEffect(() => {
+    if (isShuffle === undefined) return
+    storeSettings()
+  }, [isShuffle])
+
+  useEffect(() => {
+    const settings = getPlayerSettings()
+    setVolumeLevel(settings.volumeLevel)
+    setIsRepeat(settings.isRepeat)
+    setIsShuffle(settings.isShuffle)
+  }, [track])
+
+  useEffect(() => {
+    if (!favorites) return
+    setFavoriteSet(new Set(favorites.map((item) => item.id)))
+  }, [favorites])
+  
+
   return (
     <>
       <audio
@@ -90,9 +209,8 @@ export default function Player() {
         onLoadedData={(e) => {
           setDuration(e.currentTarget.duration.toFixed(2))
         }}
-        onTimeUpdate={getCurrDuration}
       >
-        <source src="music/Bobby_Marleni_-_Dropin.mp3" type="audio/mpeg" />
+        <source src={track?.track_file} />
       </audio>
 
       <S.Bar>
@@ -101,7 +219,10 @@ export default function Player() {
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>
-                <S.PlayerBtnPrev theme={theme}>
+                <S.PlayerBtnPrev
+                  theme={theme}
+                  onClick={() => handleChangeTrack('prev')}
+                >
                   <S.PlayerBtnPrevSvg theme={theme} alt="prev">
                     <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
@@ -117,18 +238,31 @@ export default function Player() {
                     </S.PlayerBtnPlaySvg>
                   )}
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext theme={theme}>
+                <S.PlayerBtnNext
+                  theme={theme}
+                  onClick={() => handleChangeTrack('next')}
+                >
                   <S.PlayerBtnNextSvg theme={theme} alt="next">
                     <use xlinkHref="/img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
                 <S.PlayerBtnRepeat theme={theme}>
-                  <S.PlayerBtnRepeatSvg theme={theme} alt="repeat">
+                  <S.PlayerBtnRepeatSvg
+                    theme={theme}
+                    alt="repeat"
+                    active={isRepeat ? 'true' : undefined}
+                    onClick={() => setIsRepeat(!isRepeat)}
+                  >
                     <use xlinkHref="/img/icon/sprite.svg#icon-repeat" />
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
                 <S.PlayerBtnShuffle theme={theme}>
-                  <S.PlayerBtnShuffleSvg theme={theme} alt="shuffle">
+                  <S.PlayerBtnShuffleSvg
+                    theme={theme}
+                    alt="shuffle"
+                    active={isShuffle ? 'true' : undefined}
+                    onClick={() => setIsShuffle(!isShuffle)}
+                  >
                     <use xlinkHref="/img/icon/sprite.svg#icon-shuffle" />
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
@@ -137,7 +271,7 @@ export default function Player() {
               <S.PlayerTrackPlay>
                 <S.TrackPlayContain>
                   <S.TrackPlayImage theme={theme}>
-                    {isLoading ? (
+                    {!isCanPlay ? (
                       <Skeleton />
                     ) : (
                       <S.TrackPlaySvg theme={theme} alt="music">
@@ -146,20 +280,20 @@ export default function Player() {
                     )}
                   </S.TrackPlayImage>
                   <S.TrackPlayAuthor>
-                    {isLoading ? (
+                    {!isCanPlay ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackPlayAuthorLink theme={theme} href="http://">
-                        Ты та...
+                      <S.TrackPlayAuthorLink theme={theme}>
+                        {track.author}
                       </S.TrackPlayAuthorLink>
                     )}
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum>
-                    {isLoading ? (
+                    {!isCanPlay ? (
                       <Skeleton />
                     ) : (
-                      <S.TrackPlayAlbumLink theme={theme} href="http://">
-                        Баста
+                      <S.TrackPlayAlbumLink theme={theme}>
+                        {track.album}
                       </S.TrackPlayAlbumLink>
                     )}
                   </S.TrackPlayAlbum>
@@ -167,12 +301,26 @@ export default function Player() {
 
                 <S.TrackPlayLikeDis>
                   <S.TrackPlayLike theme={theme}>
-                    <S.TrackPlayLikeSvg theme={theme} alt="like">
+                    <S.TrackPlayLikeSvg
+                      theme={theme}
+                      alt="like"
+                      active={
+                        track && favoriteSet && favoriteSet.has(track.id)
+                          ? 'true'
+                          : undefined
+                      }
+                      onClick={() => handleOnLikeClick(track)}
+                    >
                       <use xlinkHref="/img/icon/sprite.svg#icon-like" />
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike theme={theme}>
-                    <S.TrackPlayDislikeSvg theme={theme} alt="dislike">
+                    <S.TrackPlayDislikeSvg
+                      theme={theme}
+                      alt="dislike"
+                      active={activeClass ? 'true' : undefined}
+                      onClick={() => handleOnDislikeClick(track)}
+                    >
                       <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>

@@ -10,6 +10,8 @@ export const themes = {
     BtnIconSvg1: '#B1B1B1',
     BtnIconSvg2: '#707070',
     HeartIconActiveFill: '#ad61ff',
+    TrackListItem: '#ad61ff',
+    TrackListItemSelected: '#000000',
   },
   dark: {
     color: '#fff',
@@ -19,6 +21,8 @@ export const themes = {
     BtnIconSvg1: '#D9D9D9',
     BtnIconSvg2: '#696969',
     HeartIconActiveFill: '#ad61ff',
+    TrackListItem: '#ad61ff',
+    TrackListItemSelected: '#000000',
   },
 }
 
@@ -26,6 +30,10 @@ export const ThemeContext = React.createContext({
   theme: themes.dark,
   toggleTheme: () => {},
 })
+
+export const fadedStyle = {
+  display: 'none',
+}
 
 export const useThemeContext = () => {
   const theme = React.useContext(ThemeContext)
