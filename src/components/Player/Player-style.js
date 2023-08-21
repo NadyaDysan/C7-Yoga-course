@@ -46,16 +46,16 @@ const BtnIcon = css`
   stroke: ${(props) => props.theme.BtnIconSvg1};
   cursor: pointer;
   &:active svg {
-    fill: ${(props) => props.theme.HeartIconActiveFill};
-    stroke: ${(props) => props.theme.HeartIconActiveFill};
+    fill: ${(props) => props.theme.purple};
+    stroke: ${(props) => props.theme.purple};
   }
   &:not(.active):hover svg {
     fill: ${(props) => props.theme.BtnIconSvg2};
     stroke: ${(props) => props.theme.BtnIconSvg2};
   }
   &:hover:active svg {
-    fill: ${(props) => props.theme.HeartIconActiveFill};
-    stroke: ${(props) => props.theme.HeartIconActiveFill};
+    fill: ${(props) => props.theme.purple};
+    stroke: ${(props) => props.theme.purple};
   }
 `
 
@@ -104,10 +104,10 @@ export const PlayerBtnRepeatSvg = styled.svg`
   width: 18px;
   height: 12px;
   fill: ${(props) =>
-    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
+    props.active ? props.theme.purple : 'transparent'};
   stroke: ${(props) =>
     props.active
-      ? props.theme.HeartIconActiveFill
+      ? props.theme.purple
       : props.theme.lightGreyColor};
   cursor: pointer;
 `
@@ -122,10 +122,10 @@ export const PlayerBtnShuffleSvg = styled.svg`
   width: 19px;
   height: 12px;
   fill: ${(props) =>
-    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
+    props.active ? props.theme.purple : 'transparent'};
   stroke: ${(props) =>
     props.active
-      ? props.theme.HeartIconActiveFill
+      ? props.theme.purple
       : props.theme.lightGreyColor};
   cursor: pointer;
 `
@@ -208,7 +208,7 @@ export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   fill: ${(props) =>
-    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
+    props.active ? props.theme.purple : 'transparent'};
   stroke: ${(props) =>
     props.active ? props.theme.color : props.theme.lightGreyColor};
 `
@@ -216,7 +216,7 @@ export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
   fill: ${(props) =>
-    props.active ? props.theme.HeartIconActiveFill : 'transparent'};
+    props.active ? props.theme.purple : 'transparent'};
   stroke: ${(props) =>
     props.active ? props.theme.color : props.theme.lightGreyColor};
 `

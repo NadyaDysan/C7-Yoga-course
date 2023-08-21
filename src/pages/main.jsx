@@ -55,6 +55,7 @@ export default function Main() {
     setSearchedData(searched)
   }, [filteredData, search])
 
+
   useEffect(() => {
     if (!tracks) return
     if (!filter) {
@@ -62,11 +63,12 @@ export default function Main() {
       return
     }
 
-    const { authors, years, genres } = filter
+    const { years, genres } = filter
+
     let filtered = [...tracks]
-    if (authors.size > 0)
-      filtered = filtered.filter(() => authors.has(track.author))
-    if (genres.size > 0)
+    if (filter.authors.size > 0)
+      filtered = filtered.filter(() => filter.authors.has(track.author))
+    if (genres.length > 0)
       filtered = filtered.filter(() => genres.has(track.genre))
     filtered = filtered.sort((a, b) => {
       const dateA = Date.parse(a.release_date)

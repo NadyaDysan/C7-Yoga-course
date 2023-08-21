@@ -54,7 +54,8 @@ export default function Filter({ data, updateFilter }) {
     setFilter(stored)
   }, [])
 
-  
+  console.log(filter)
+
   return (
     <S.CenterBlockFilter>
       <S.FilterTitle theme={theme}>Искать по:</S.FilterTitle>
@@ -98,12 +99,17 @@ function DropdownFilter({ list, title, filter, setFilter }) {
     let filterCopy = { ...filter }
     let keys = Object.keys(selectedFilterItems)
     keys.forEach((key) => {
-      if (selectedFilterItems[key]) {
+      if (selectedFilterItems[key]===true) {
         filterCopy.authors.add(key)
+      }
+      if (selectedFilterItems[key]===false) {
+        filterCopy.authors.delete(key)
       }
     })
     setFilter(filterCopy)
   }
+
+  console.log(selectedFilterItems)
 
   return (
     <S.FilterDropdown ref={menuRef}>
@@ -111,9 +117,12 @@ function DropdownFilter({ list, title, filter, setFilter }) {
         theme={theme}
         onClick={() => setIsDropdownDisplayed((prevState) => !prevState)}
       >
-        {numberOfFilterItemsSelected > 0
-          ? `${title}` (<S.FilterButtonNumber>`${numberOfFilterItemsSelected}`</S.FilterButtonNumber>)
-          : `${title}`}
+        {title}
+        {numberOfFilterItemsSelected > 0 && 
+        <S.FilterButtonNumber theme={theme}>
+          {numberOfFilterItemsSelected}
+          </S.FilterButtonNumber>
+         }
       </S.FilterButton>
       {isDropdownDisplayed && (
         <S.FilterPanelWrapper theme={theme}>

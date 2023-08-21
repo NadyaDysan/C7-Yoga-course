@@ -51,35 +51,29 @@ export const FilterButton = styled.button`
     color: #ad61ff;
     cursor: pointer;
   }
+  transition: color 0.25s linear, border-color 0.25s linear;
 `
 export const FilterButtonNumber = styled.span`
-  background-color: var(--tab-background-color);
-  color: var(--tab-color);
+  color: ${(props) => props.theme.color};
+  background-color: ${(props) => props.theme.purple};
   width: 26px;
   height: 26px;
-  font-family: StratosSkyeng, sans-serif;
-  font-style: normal;
   font-size: 13px;
-  line-height: 13px;
-  font-weight: 400;
   border-radius: 50%;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
   -ms-flex-flow: column nowrap;
   flex-flow: column nowrap;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
   position: absolute;
-`
+  top: -11px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `
 
 export const FilterPanelWrapper = styled.div`
   padding: 18px;
@@ -87,6 +81,7 @@ export const FilterPanelWrapper = styled.div`
   background: ${(props) => props.theme.lighterGreyColor};
   border-radius: 12px;
   margin-top: 15px;
+  transition: opacity 0.3s linear;
 `
 export const FilterPanel = styled.div`
   color: ${(props) => props.theme.color};

@@ -162,7 +162,7 @@ export const TrackLikeSvg = styled.svg`
   cursor: pointer;
   fill: ${(props) =>
     props.active
-      ? props.theme.HeartIconActiveFill
+      ? props.theme.purple
       : 'transparent'};
   stroke: ${(props) =>
     props.active
