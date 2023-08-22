@@ -12,14 +12,14 @@ import NotFoundPage from './pages/not_found'
 import Logout from './pages/logout'
 
 
-export default function AppRoutes({ isAuth }) {
+export default function AppRoutes() {
 
   return (
     <ErrorBoundary FallbackComponent={LoadingError} onReset={() => window.location.reload(false)}>
     <Routes>
       <Route path="/login" element={<RegistrationForm />} />
       <Route path="/logout" element={<Logout />} />
-      <Route element={<ProtectedRoute isAllowed={isAuth} redirectTo="/login" />}>
+      <Route element={<ProtectedRoute redirectPath="/login" />}>
         <Route path="/" element={<Main />} />
         <Route path="/day_playlist/:id" element={<DayPlaylist />} />
         <Route path="/100_tracks/:id" element={<HundredTracks />} />

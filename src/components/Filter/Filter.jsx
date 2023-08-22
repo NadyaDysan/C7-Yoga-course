@@ -62,17 +62,24 @@ export default function Filter({ data, updateFilter }) {
       <DropdownFilter
         title="исполнителю"
         list={authors}
-        name="authors"
+        filterName="authors"
         filter={filter}
         setFilter={setFilter}
       />
-      <RadioFilter title="году выпуска" list={years} name="years" />
-      <DropdownFilter title="жанру" list={genres} name="genres" />
+      <RadioFilter title="году выпуска" list={years} name="years" filter={filter}
+        setFilter={setFilter} />
+      <DropdownFilter
+        title="жанру"
+        list={genres}
+        filterName="genres"
+        filter={filter}
+        setFilter={setFilter}
+      />
     </S.CenterBlockFilter>
   )
 }
 
-function DropdownFilter({ list, title, filter, setFilter }) {
+function DropdownFilter({ list, title, filter, setFilter, filterName }) {
   const { theme } = useThemeContext()
 
   const [isDropdownDisplayed, setIsDropdownDisplayed] = useState(false)
@@ -95,21 +102,19 @@ function DropdownFilter({ list, title, filter, setFilter }) {
     return () => document.removeEventListener('mousedown', closeFilter)
   }, [])
 
-  const addAuthors = () => {
+  const addFilterItems = () => {
     let filterCopy = { ...filter }
     let keys = Object.keys(selectedFilterItems)
     keys.forEach((key) => {
-      if (selectedFilterItems[key]===true) {
-        filterCopy.authors.add(key)
+      if (selectedFilterItems[key] === true) {
+        filterCopy[filterName].add(key)
       }
-      if (selectedFilterItems[key]===false) {
-        filterCopy.authors.delete(key)
+      if (selectedFilterItems[key] === false) {
+        filterCopy[filterName].delete(key)
       }
     })
     setFilter(filterCopy)
   }
-
-  console.log(selectedFilterItems)
 
   return (
     <S.FilterDropdown ref={menuRef}>
@@ -118,11 +123,11 @@ function DropdownFilter({ list, title, filter, setFilter }) {
         onClick={() => setIsDropdownDisplayed((prevState) => !prevState)}
       >
         {title}
-        {numberOfFilterItemsSelected > 0 && 
-        <S.FilterButtonNumber theme={theme}>
-          {numberOfFilterItemsSelected}
+        {numberOfFilterItemsSelected > 0 && (
+          <S.FilterButtonNumber theme={theme}>
+            {numberOfFilterItemsSelected}
           </S.FilterButtonNumber>
-         }
+        )}
       </S.FilterButton>
       {isDropdownDisplayed && (
         <S.FilterPanelWrapper theme={theme}>
@@ -134,11 +139,11 @@ function DropdownFilter({ list, title, filter, setFilter }) {
               >
                 <input
                   onChange={(e) => {
-                    addAuthors();
                     setSelectedFilterItems({
                       ...selectedFilterItems,
                       [name]: e.target.checked,
                     })
+                    addFilterItems()
                   }}
                   id={`input-${name}`}
                   type="checkbox"
@@ -161,7 +166,7 @@ function RadioFilter(props) {
   const [selectedFilterItems, setSelectedFilterItems] = useState(
     props.list.reduce((obj, name) => ({ ...obj, [name]: false }), {})
   )
-
+  
   const menuRef = useRef()
 
   useEffect(() => {
@@ -173,6 +178,13 @@ function RadioFilter(props) {
     document.addEventListener('mousedown', closeFilter)
     return () => document.removeEventListener('mousedown', closeFilter)
   }, [])
+
+  const addFilterItems = () => {
+    let entry = Object.entries (selectedFilterItems) [0]; 
+    // eslint-disable-next-line no-shadow
+    let years = entry [0];
+    props.setFilter({...props.filter, years})
+  }
 
   return (
     <S.FilterRadioMainFieldset ref={menuRef}>
@@ -190,11 +202,12 @@ function RadioFilter(props) {
               isSelected={selectedFilterItems[name]}
             >
               <S.FilterRadioInput
-                onChange={(e) =>
+                onChange={(e) =>{
                   setSelectedFilterItems({
                     [name]: e.target.checked,
                   })
-                }
+                  addFilterItems()
+                }}
                 id={`input-${name}`}
                 value={`radio-${name}`}
                 type="radio"

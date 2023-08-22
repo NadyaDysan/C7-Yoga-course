@@ -58,18 +58,20 @@ export default function Main() {
 
   useEffect(() => {
     if (!tracks) return
+    
     if (!filter) {
       setFilteredData(tracks)
       return
     }
 
-    const { years, genres } = filter
+    const {authors, years, genres } = filter
 
     let filtered = [...tracks]
-    if (filter.authors.size > 0)
-      filtered = filtered.filter(() => filter.authors.has(track.author))
-    if (genres.length > 0)
-      filtered = filtered.filter(() => genres.has(track.genre))
+    console.log(tracks)
+    // eslint-disable-next-line no-shadow
+    if (authors.size > 0) filtered = filtered.filter((track) => authors.has(track.author))
+    // eslint-disable-next-line no-shadow
+    if (genres.size > 0) filtered = filtered.filter((track) => genres.has(track.genre))
     filtered = filtered.sort((a, b) => {
       const dateA = Date.parse(a.release_date)
       const dateB = Date.parse(b.release_date)

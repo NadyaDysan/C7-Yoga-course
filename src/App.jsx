@@ -1,10 +1,8 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import AppRoutes from './routes'
 import { themes, ThemeContext } from './components/ThemeSwitcher/ThemeSwitcher'
-import { isLoggedInSelector } from './redux/store'
 import { useRefreshMutation } from './redux/api/userApi'
 import { getRefresh, isRefreshExists } from './redux/features/refresh'
 
@@ -104,8 +102,6 @@ const StyledContainer = styled.div`
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark)
 
-  const isLoggedIn = useSelector(isLoggedInSelector)
-
   const [refresh, { isLoading: isRefreshFetching, isError: isRefreshError }] =
     useRefreshMutation()
 
@@ -117,7 +113,7 @@ function App() {
 
   useEffect(() => {
     handleRefreshAccess()
-    const timer = setInterval(handleRefreshAccess, 50000)
+    const timer = setInterval(handleRefreshAccess, 300000)
     return () => clearInterval(timer)
   }, [])
 
@@ -133,14 +129,14 @@ function App() {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
-      {(!isLoggedIn || isRefreshFetching) &&
+      {(isRefreshFetching) &&
       !isRefreshError &&
       isRefreshExists() ? (
         <SkeletonTheme baseColor="#313131" highlightColor="#525252">
           <GlobalStyle />
           <StyledWrapper>
             <StyledContainer>
-              <AppRoutes />
+              <AppRoutes/>
             </StyledContainer>
           </StyledWrapper>
         </SkeletonTheme>
@@ -149,7 +145,7 @@ function App() {
           <GlobalStyle />
           <StyledWrapper>
             <StyledContainer>
-              <AppRoutes isAuth={isLoggedIn} />
+              <AppRoutes/>
             </StyledContainer>
           </StyledWrapper>
         </>
