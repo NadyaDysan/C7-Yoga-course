@@ -1,5 +1,6 @@
+import { Navigate, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { useGetFavoritesQuery } from '../redux/api/favorites'
+import { useGetSelectionQuery } from '../redux/api/selections'
 import Navigation from '../components/Navigation/Navigation'
 import Player from '../components/Player/Player'
 import Search from '../components/Search/Search'
@@ -8,14 +9,32 @@ import Sidebar from '../components/Sidebar/Sidebar'
 import { useThemeContext } from '../components/ThemeSwitcher/ThemeSwitcher'
 
 
-export default function MyTracks() {
+
+const COLLECTIONS = {
+  1: {
+    title: 'Плейлист дня'
+  },
+  2: {
+    title: '100 танцевальных хитов'
+  },
+  3: {
+    title: 'Инди заряд'
+  }
+}
+
+export default function Collections() {
   const { theme } = useThemeContext()
 
+  const { id } = useParams()
+
+  if (!COLLECTIONS[id]) {
+    return <Navigate to="*" />
+  }
   const {
     data: tracks,
     isLoading: isTracksLoading,
     isSuccess: isTracksSuccess
-  } = useGetFavoritesQuery()
+  } = useGetSelectionQuery(id)
   const [search, updateSearch] = useState(null)
   const [searchedData, setSearchedData] = useState(null)
   const [track, setTrack] = useState(null)
@@ -67,7 +86,7 @@ export default function MyTracks() {
       >
         <Navigation />
         <Centerblock
-          title="Мои треки"
+          title={COLLECTIONS[id].title}
           search={searchInput}
           data={searchedData || []}
           isFetching={isTracksLoading}
@@ -87,7 +106,7 @@ export default function MyTracks() {
       >
         <Navigation />
         <Centerblock
-          title="Мои треки"
+          title={COLLECTIONS[id].title}
           search={searchInput}
           data={searchedData || []}
           isFetching={isTracksLoading}

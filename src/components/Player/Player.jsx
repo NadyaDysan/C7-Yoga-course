@@ -206,6 +206,7 @@ export default function Player({ track, changeTrack }) {
     <>
       <audio
         ref={audioRef}
+        key={track?.track_file}
         onLoadedData={(e) => {
           setDuration(e.currentTarget.duration.toFixed(2))
         }}
@@ -272,31 +273,31 @@ export default function Player({ track, changeTrack }) {
                 <S.TrackPlayContain>
                   <S.TrackPlayImage theme={theme}>
                     {!isCanPlay ? (
-                      <Skeleton />
+                      <Skeleton/>
                     ) : (
                       <S.TrackPlaySvg theme={theme} alt="music">
                         <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                       </S.TrackPlaySvg>
                     )}
                   </S.TrackPlayImage>
+                  <S.TrackPlayName>
+                    {!isCanPlay ? (
+                      <Skeleton/>
+                     ) : (
+                      <S.TrackPlayNameLink theme={theme}>
+                        {track.name}
+                      </S.TrackPlayNameLink>
+                    )}
+                  </S.TrackPlayName>
                   <S.TrackPlayAuthor>
                     {!isCanPlay ? (
-                      <Skeleton />
+                      <Skeleton/>
                     ) : (
                       <S.TrackPlayAuthorLink theme={theme}>
                         {track.author}
                       </S.TrackPlayAuthorLink>
                     )}
                   </S.TrackPlayAuthor>
-                  <S.TrackPlayAlbum>
-                    {!isCanPlay ? (
-                      <Skeleton />
-                    ) : (
-                      <S.TrackPlayAlbumLink theme={theme}>
-                        {track.album}
-                      </S.TrackPlayAlbumLink>
-                    )}
-                  </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
 
                 <S.TrackPlayLikeDis>

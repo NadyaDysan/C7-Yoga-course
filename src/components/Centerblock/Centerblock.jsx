@@ -8,6 +8,7 @@ import {
   useDeleteFavoriteMutation,
   useGetFavoritesQuery,
 } from '../../redux/api/favorites'
+import SceletonTrack from '../SceletonTrack/Sceleton-track'
 
 export const toMMSS = (seconds) => {
   const min = Math.trunc(Number(seconds) / 60)
@@ -136,6 +137,7 @@ export default function Centerblock({
                 </S.PlaylistTrack>
               </S.PlaylistItem>
             ))}
+            {isFetching && [...new Array(20).keys()].map((key) => <SceletonTrack key={key}/>)}
         </S.ContentPlaylist>
       </S.CenterBlockContent>
     </S.MainCenterBlock>

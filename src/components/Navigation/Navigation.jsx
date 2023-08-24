@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useRef, useEffect } from 'react'
+import { NavLink } from "react-router-dom";
 import * as S from './Navigation-styles'
 import ThemeSwitcher, {
   useThemeContext,
@@ -11,7 +12,7 @@ import ThemeSwitcher, {
 
 const navMenu = [
   { id: 0, title: 'Главное', link: '/' },
-  { id: 1, title: 'Мой плейлист', link: '/my_tracks/:id' },
+  { id: 1, title: 'Мой плейлист', link: '/my_tracks' },
   { id: 2, title: 'Выйти', link: '/logout' },
 ]
 
@@ -52,9 +53,11 @@ export default function Navigation() {
           <S.NavigationMenu theme={theme}>
             {navMenu.map((item) => (
               <S.MenuItem key={item.id}>
-                <S.MenuLink theme={theme} href={item.link}>
+                <NavLink to={item.link}>
+                <S.MenuLink theme={theme}>
                   {item.title}
                 </S.MenuLink>
+                </NavLink>
               </S.MenuItem>
             ))}
             <ThemeSwitcher />

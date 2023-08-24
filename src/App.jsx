@@ -102,8 +102,7 @@ const StyledContainer = styled.div`
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark)
 
-  const [refresh, { isLoading: isRefreshFetching, isError: isRefreshError }] =
-    useRefreshMutation()
+  const [refresh] = useRefreshMutation()
 
   const handleRefreshAccess = () => {
     if (isRefreshExists()) {
@@ -129,9 +128,6 @@ function App() {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
-      {(isRefreshFetching) &&
-      !isRefreshError &&
-      isRefreshExists() ? (
         <SkeletonTheme baseColor="#313131" highlightColor="#525252">
           <GlobalStyle />
           <StyledWrapper>
@@ -140,16 +136,6 @@ function App() {
             </StyledContainer>
           </StyledWrapper>
         </SkeletonTheme>
-      ) : (
-        <>
-          <GlobalStyle />
-          <StyledWrapper>
-            <StyledContainer>
-              <AppRoutes/>
-            </StyledContainer>
-          </StyledWrapper>
-        </>
-      )}
     </ThemeContext.Provider>
   )
 }

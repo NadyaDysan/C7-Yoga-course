@@ -46,6 +46,10 @@ export const SidebarItem = styled.div`
   &:not(:last-child) {
     margin-bottom: 30px;
   }
+  &:hover {
+    fill: ${(props) => props.theme.purple};
+    stroke: ${(props) => props.theme.purple};
+  }
 `
 export const SidebarImg = styled.img`
   width: 100%;

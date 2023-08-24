@@ -103,12 +103,9 @@ export const PlayerBtnRepeat = styled.div`
 export const PlayerBtnRepeatSvg = styled.svg`
   width: 18px;
   height: 12px;
-  fill: ${(props) =>
-    props.active ? props.theme.purple : 'transparent'};
+  fill: ${(props) => (props.active ? props.theme.purple : 'transparent')};
   stroke: ${(props) =>
-    props.active
-      ? props.theme.purple
-      : props.theme.lightGreyColor};
+    props.active ? props.theme.purple : props.theme.lightGreyColor};
   cursor: pointer;
 `
 export const PlayerBtnShuffle = styled.div`
@@ -121,12 +118,9 @@ export const PlayerBtnShuffle = styled.div`
 export const PlayerBtnShuffleSvg = styled.svg`
   width: 19px;
   height: 12px;
-  fill: ${(props) =>
-    props.active ? props.theme.purple : 'transparent'};
+  fill: ${(props) => (props.active ? props.theme.purple : 'transparent')};
   stroke: ${(props) =>
-    props.active
-      ? props.theme.purple
-      : props.theme.lightGreyColor};
+    props.active ? props.theme.purple : props.theme.lightGreyColor};
   cursor: pointer;
 `
 
@@ -163,11 +157,11 @@ export const TrackPlaySvg = styled.svg`
   fill: transparent;
   stroke: ${(props) => props.theme.lightGreyColor};
 `
-export const TrackPlayAuthor = styled.div`
+export const TrackPlayName = styled.div`
   grid-area: author;
   min-width: 49px;
 `
-export const TrackPlayAuthorLink = styled.p`
+export const TrackPlayNameLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -175,17 +169,18 @@ export const TrackPlayAuthorLink = styled.p`
   color: ${(props) => props.theme.color};
   white-space: nowrap;
 `
-export const TrackPlayAlbum = styled.div`
+export const TrackPlayAuthor = styled.div`
   grid-area: album;
   min-width: 49px;
 `
-export const TrackPlayAlbumLink = styled.p`
+export const TrackPlayAuthorLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
   color: ${(props) => props.theme.color};
 `
+
 export const TrackPlayLikeDis = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -207,16 +202,14 @@ export const TrackPlayDislike = styled.div`
 export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
-  fill: ${(props) =>
-    props.active ? props.theme.purple : 'transparent'};
+  fill: ${(props) => (props.active ? props.theme.purple : 'transparent')};
   stroke: ${(props) =>
     props.active ? props.theme.color : props.theme.lightGreyColor};
 `
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
-  fill: ${(props) =>
-    props.active ? props.theme.purple : 'transparent'};
+  fill: ${(props) => (props.active ? props.theme.purple : 'transparent')};
   stroke: ${(props) =>
     props.active ? props.theme.color : props.theme.lightGreyColor};
 `

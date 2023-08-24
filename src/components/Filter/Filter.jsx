@@ -6,13 +6,13 @@ import * as S from './Filter-style'
 
 const years = ['Более новые', 'Более старые']
 
-const FILTER_ITEM_NAME = 'filter'
 const getFilter = () => {
-  const filter = localStorage.getItem(FILTER_ITEM_NAME)
+  const filter = localStorage.getItem('filter')
   return filter ? JSON.parse(filter) : {}
 }
+
 const storeFilter = (filter) => {
-  localStorage.setItem(FILTER_ITEM_NAME, JSON.stringify(filter))
+  localStorage.setItem('filter', JSON.stringify(filter))
 }
 
 export default function Filter({ data, updateFilter }) {
@@ -54,8 +54,6 @@ export default function Filter({ data, updateFilter }) {
     setFilter(stored)
   }, [])
 
-  console.log(filter)
-
   return (
     <S.CenterBlockFilter>
       <S.FilterTitle theme={theme}>Искать по:</S.FilterTitle>
@@ -87,9 +85,9 @@ function DropdownFilter({ list, title, filter, setFilter, filterName }) {
     list.reduce((obj, item) => ({ ...obj, [item]: false }), {})
   )
 
-  const numberOfFilterItemsSelected =
-    Object.values(selectedFilterItems).filter(Boolean).length
+  const numberOfFilterItemsSelected = filter? filter[filterName].size : 0
 
+  
   const menuRef = useRef()
 
   useEffect(() => {
@@ -116,6 +114,10 @@ function DropdownFilter({ list, title, filter, setFilter, filterName }) {
     setFilter(filterCopy)
   }
 
+  useEffect(() => {
+    addFilterItems(selectedFilterItems);
+  }, [selectedFilterItems]);
+
   return (
     <S.FilterDropdown ref={menuRef}>
       <S.FilterButton
@@ -135,7 +137,7 @@ function DropdownFilter({ list, title, filter, setFilter, filterName }) {
             {list.map((name) => (
               <S.FilterPanelItems
                 key={name}
-                isSelected={selectedFilterItems[name]}
+                selected={filter? filter[filterName].has(name) : false}
               >
                 <input
                   onChange={(e) => {
@@ -143,11 +145,11 @@ function DropdownFilter({ list, title, filter, setFilter, filterName }) {
                       ...selectedFilterItems,
                       [name]: e.target.checked,
                     })
-                    addFilterItems()
                   }}
                   id={`input-${name}`}
+                  value={`input-${name}`}
                   type="checkbox"
-                  checked={selectedFilterItems[name]}
+                  checked={filter? filter[filterName].has(name) : false}
                 />
                 <S.FilterLabel htmlFor={`input-${name}`}>{name}</S.FilterLabel>
               </S.FilterPanelItems>
@@ -186,6 +188,10 @@ function RadioFilter(props) {
     props.setFilter({...props.filter, years})
   }
 
+  useEffect(() => {
+    addFilterItems(selectedFilterItems);
+  }, [selectedFilterItems]);
+
   return (
     <S.FilterRadioMainFieldset ref={menuRef}>
       <S.FilterButton
@@ -199,7 +205,7 @@ function RadioFilter(props) {
           {props.list.map((name) => (
             <S.FilterPanelItems
               key={name}
-              isSelected={selectedFilterItems[name]}
+              selected={selectedFilterItems[name]}
             >
               <S.FilterRadioInput
                 onChange={(e) =>{

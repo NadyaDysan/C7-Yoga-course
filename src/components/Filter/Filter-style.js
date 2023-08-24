@@ -81,7 +81,7 @@ export const FilterPanelWrapper = styled.div`
   background: ${(props) => props.theme.lighterGreyColor};
   border-radius: 12px;
   margin-top: 15px;
-  transition: opacity 0.3s linear;
+  transition: 0.3s linear;
 `
 export const FilterPanel = styled.div`
   color: ${(props) => props.theme.color};
@@ -115,8 +115,8 @@ export const FilterPanel = styled.div`
 
 export const FilterPanelItems = styled.fieldset`
   border: none;
-  ${({ isSelected }) =>
-    isSelected &&
+  ${props =>
+    props.selected &&
     css`
       color: #b672ff;
       text-decoration: underline;

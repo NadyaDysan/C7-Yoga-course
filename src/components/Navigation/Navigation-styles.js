@@ -12,7 +12,7 @@ export const NavigationLogo = styled(Link)`
 export const NavigationBurger = styled.div`
   width: 20px;
   height: 36px;
-  padding: 13px 0;
+  padding: 12px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -26,6 +26,7 @@ export const NavigationMenu = styled.div`
   visibility: visible;
   position: absolute;
   background-color: ${props => props.theme.background};
+  transition: left 0.3s linear;
   `
 
 export const LogoImage = styled.img`
@@ -60,6 +61,7 @@ export const MenuLink = styled.a`
 export const FieldsetNavMenu = styled.fieldset`
   border: none;
   width: 24px;
+  margin-top: 17px;
   transition: left 0.3s linear;
 `
 export const MainNav = styled.nav`

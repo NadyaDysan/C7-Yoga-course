@@ -67,7 +67,6 @@ export default function Main() {
     const {authors, years, genres } = filter
 
     let filtered = [...tracks]
-    console.log(tracks)
     // eslint-disable-next-line no-shadow
     if (authors.size > 0) filtered = filtered.filter((track) => authors.has(track.author))
     // eslint-disable-next-line no-shadow
