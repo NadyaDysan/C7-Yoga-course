@@ -1,5 +1,8 @@
 import styled from 'styled-components/macro'
 
+export const FormContainer = styled.div`
+`
+
 export const RegisterBlock = styled.div`
   width: 360px;
   height: 433px;
@@ -53,7 +56,7 @@ export const RepeatPassword = styled.input`
   height: 26px;
   padding: 2px;
 `
-export const RegisterButton = styled.button`
+export const RegisterButton = styled.input.attrs({ type: 'button' })`
   font-family: 'StratosSkyeng';
   width: 278px;
   height: 52px;
@@ -63,4 +66,17 @@ export const RegisterButton = styled.button`
   color: #ffffff;
   margin-top: 34px;
   font-size: 16px;
+  cursor: pointer;
 `
+export const EnterButton = styled.input.attrs({ type: 'submit' })`
+  font-family: 'StratosSkyeng';
+  width: 278px;
+  height: 52px;
+  background-color: #580ea2;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  margin-top: 34px;
+  font-size: 16px;
+  cursor: pointer;
+  `

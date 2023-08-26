@@ -17,12 +17,12 @@ const {theme} = useThemeContext();
       </S.Title>
       <S.PageNotFound>
         Страница не найдена
-        <S.PageNotFoundSvg theme={theme} src="img/emoji/crying.png" alt="crying_emoji" />
+        <S.PageNotFoundSvg theme={theme} src="/img/emoji/crying.png" alt="crying_emoji" />
       </S.PageNotFound>
       <S.PageNotFoundDescription theme={theme}>
         Возможно, она была удалена <br/> или перенесена на другой адрес
       </S.PageNotFoundDescription>
-      <S.ReturnHomeButton theme={theme} onClick={()=> {navigate('/main')}}>
+      <S.ReturnHomeButton theme={theme} onClick={()=> {navigate('/')}}>
         Вернуться на главную
       </S.ReturnHomeButton>
     </S.NotFoundBlock>

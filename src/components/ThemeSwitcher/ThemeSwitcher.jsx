@@ -9,6 +9,9 @@ export const themes = {
     lighterGreyColor: '#F6F4F4',
     BtnIconSvg1: '#B1B1B1',
     BtnIconSvg2: '#707070',
+    purple: '#c29deb',
+    TrackListItem: '#ad61ff',
+    TrackListItemSelected: '#000000',
   },
   dark: {
     color: '#fff',
@@ -17,6 +20,9 @@ export const themes = {
     lighterGreyColor: '#313131',
     BtnIconSvg1: '#D9D9D9',
     BtnIconSvg2: '#696969',
+    purple: '#ad61ff',
+    TrackListItem: '#ad61ff',
+    TrackListItemSelected: '#000000',
   },
 }
 
@@ -25,12 +31,15 @@ export const ThemeContext = React.createContext({
   toggleTheme: () => {},
 })
 
+export const fadedStyle = {
+  display: 'none',
+}
+
 export const useThemeContext = () => {
   const theme = React.useContext(ThemeContext)
 
   if (!theme) return theme.dark
 
-  // return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
   return theme
 }
 
@@ -49,9 +58,9 @@ export default function ThemeSwitcher() {
       >
         <title id="button-label">Theme-Switcher</title>
         {theme === themes.dark ? (
-          <use xlinkHref="img/icon/sprite.svg#theme-light" />
+          <use xlinkHref="/img/icon/sprite.svg#theme-light" />
         ) : (
-          <use xlinkHref="img/icon/sprite.svg#theme-dark" />
+          <use xlinkHref="/img/icon/sprite.svg#theme-dark" />
         )}
       </S.ThemeSwitcherIconSvg>
     </S.ThemeSwitcherButton>

@@ -1,9 +1,10 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import styled, { createGlobalStyle } from 'styled-components'
-import { useState } from 'react'
-import Cookies from 'js-cookie'
+import { useState, useEffect } from 'react'
 import AppRoutes from './routes'
 import { themes, ThemeContext } from './components/ThemeSwitcher/ThemeSwitcher'
+import { useRefreshMutation } from './redux/api/userApi'
+import { getRefresh, isRefreshExists } from './redux/features/refresh'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -99,8 +100,21 @@ const StyledContainer = styled.div`
 `
 
 function App() {
-  const userToken = Cookies.get('token') // => '1234'
-  const [currentTheme, setCurrentTheme] = useState(themes.light)
+  const [currentTheme, setCurrentTheme] = useState(themes.dark)
+
+  const [refresh] = useRefreshMutation()
+
+  const handleRefreshAccess = () => {
+    if (isRefreshExists()) {
+      refresh({ refresh: getRefresh() })
+    }
+  }
+
+  useEffect(() => {
+    handleRefreshAccess()
+    const timer = setInterval(handleRefreshAccess, 300000)
+    return () => clearInterval(timer)
+  }, [])
 
   const toggleTheme = () => {
     if (currentTheme === themes.dark) {
@@ -114,14 +128,14 @@ function App() {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
-      <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-        <GlobalStyle />
-        <StyledWrapper>
-          <StyledContainer>
-            <AppRoutes user={userToken} />
-          </StyledContainer>
-        </StyledWrapper>
-      </SkeletonTheme>
+        <SkeletonTheme baseColor="#313131" highlightColor="#525252">
+          <GlobalStyle />
+          <StyledWrapper>
+            <StyledContainer>
+              <AppRoutes/>
+            </StyledContainer>
+          </StyledWrapper>
+        </SkeletonTheme>
     </ThemeContext.Provider>
   )
 }

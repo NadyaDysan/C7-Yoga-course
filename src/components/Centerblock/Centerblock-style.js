@@ -81,6 +81,11 @@ export const PlaylistTrack = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  ${(props) =>
+    props.selected
+      ? props.theme.TrackListItemSelected
+      : props.theme.TrackListItem}
 `
 
 export const TrackTitle = styled.div`
@@ -108,7 +113,7 @@ export const TrackTitleSvg = styled.svg`
   fill: transparent;
   stroke: ${props => props.theme.lightGreyColor};
 `
-export const TrackTitleLink = styled.a`
+export const TrackTitleLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -129,7 +134,7 @@ export const TrackAuthor = styled.div`
   display: -ms-flexbox;
   justify-content: flex-start;
 `
-export const TrackAuthorLink = styled.a`
+export const TrackAuthorLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -142,7 +147,7 @@ export const TrackAlbum = styled.div`
   width: 245px;
 `
 
-export const TrackAlbumLink = styled.a`
+export const TrackAlbumLink = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -150,12 +155,19 @@ export const TrackAlbumLink = styled.a`
   color: ${props => props.theme.lightGreyColor};
 `
 
-export const TrackTimeSvg = styled.svg`
+export const TrackLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   margin-right: 17px;
-  fill: transparent;
-  stroke: ${props => props.theme.lightGreyColor};
+  cursor: pointer;
+  fill: ${(props) =>
+    props.active
+      ? props.theme.purple
+      : 'transparent'};
+  stroke: ${(props) =>
+    props.active
+      ? props.theme.color
+      : props.theme.lightGreyColor};
 `
 export const TrackTimeText = styled.span`
   font-style: normal;

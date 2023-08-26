@@ -1,6 +1,9 @@
 import Registration from '../components/Registration/Registration'
+import ErrorList from '../components/ErrorList/Error-list'
+import { addError } from '../redux/features/authSlice'
 
 export default function RegistrationForm() {
+  
   const formStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -10,6 +13,7 @@ export default function RegistrationForm() {
   return (
     <main style={formStyle}>
       <Registration />
+      <ErrorList reducer={addError} />
     </main>
   )
 }
