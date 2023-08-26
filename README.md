@@ -3,11 +3,11 @@
 - Registration (login) 
 - There is a division into authorization and non-authorization zones 
 - Ability to log in and log out (sign up, sign out) 
-- The player built into the application (listening to music, pausing and unpausing, rewinding, repeating a track, shuffle playlist) 
+- The player is built into the application (listening to music, pausing and unpausing, rewinding, repeating a track, shuffle playlist) 
 - A track bar status 
 - Adding a track to favorites 
 - Collection list 
-- By clicking on a burger, left menu opens 
+- Left menu opens by clicking on a burger 
 - Filtering tracks by artist 
 - Sort tracks by date 
 - Filtering tracks by genre 
