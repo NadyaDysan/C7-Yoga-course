@@ -68,7 +68,8 @@ export default function Centerblock({
         <S.ContentPlaylist>
           {data &&
             data.map((item) => (
-              <S.PlaylistItem>
+              <S.PlaylistItem
+              key={item.name}>
                 <S.PlaylistTrack 
                 key={item.id}
                 selected={

@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 export const MainCenterBlock = styled.div`
   width: auto;
   flex-grow: 3;
-  padding: 20px 40px 20px 111px;
+  padding: 50px 40px 20px 111px;
   background-color: ${props => props.theme.background};
 `
 
@@ -34,11 +34,17 @@ export const ContentTitle = styled.div`
 `
 
 export const ContentPlaylist = styled.div`
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: fit-content;
+  overflow-y: scroll;
+  flex: 1 1 auto;
+  height: calc(100vh - 407px);
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const PlayListTitleCol = styled.div`

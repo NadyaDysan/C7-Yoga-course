@@ -81,11 +81,11 @@ export const FilterPanelWrapper = styled.div`
   background: ${(props) => props.theme.lighterGreyColor};
   border-radius: 12px;
   margin-top: 15px;
-  transition: 0.3s linear;
+  transition: 3s linear;
 `
 export const FilterPanel = styled.div`
   color: ${(props) => props.theme.color};
-  height: 305px;
+  max-height: 276px;
   width: 248px;
   gap: 28px;
   padding: 24px;
@@ -131,6 +131,7 @@ export const FilterRadioPanel = styled.div`
   border-radius: 12px;
   gap: 14px;
   background-color: ${(props) => props.theme.lighterGreyColor};
+  font-size: 18px;
 `
 export const FilterLabel = styled.label`
   cursor: pointer;

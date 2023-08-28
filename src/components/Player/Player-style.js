@@ -209,9 +209,8 @@ export const TrackPlayLikeSvg = styled.svg`
 export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
-  fill: ${(props) => (props.active ? props.theme.purple : 'transparent')};
-  stroke: ${(props) =>
-    props.active ? props.theme.color : props.theme.lightGreyColor};
+  fill: transparent;
+  stroke: ${(props) => props.theme.lightGreyColor};
 `
 export const BarPlayerTimerBlock = styled.div`
   display: flex;

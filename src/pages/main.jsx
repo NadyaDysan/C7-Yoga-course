@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Navigation from '../components/Navigation/Navigation'
 import Sidebar from '../components/Sidebar/Sidebar'
 import Player from '../components/Player/Player'
+import Gradient from '../components/Gradient/Gradient'
 import Centerblock from '../components/Centerblock/Centerblock'
 import Filter from '../components/Filter/Filter'
 import Search from '../components/Search/Search'
@@ -104,6 +105,7 @@ export default function Main() {
         selectedTrack={track}
       />
       <Sidebar isFetching={isTracksLoading} />
+      <Gradient/>
     </main>
   )}
 
@@ -126,6 +128,7 @@ export default function Main() {
       />
       <Sidebar isFetching={isTracksLoading} />
       <Player track={track} changeTrack={handleChangeTrack} />
+      <Gradient bottom="87px"/>
     </main>
   )
 }

@@ -1,5 +1,5 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
-import styled, { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 import { useState, useEffect } from 'react'
 import AppRoutes from './routes'
 import { themes, ThemeContext } from './components/ThemeSwitcher/ThemeSwitcher'
@@ -47,7 +47,8 @@ body {
   width: 100%;
   height: 100%;
   font-family: 'StratosSkyeng', sans-serif;
-  color: #FFFFFF;
+  color: ${props => props.theme.color};
+  background-color: ${props => props.theme.background};
 }
 
 ._btn-text:hover {
@@ -75,6 +76,15 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  max-width: 1920px;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background-color: #181818;
 }
 
 input[type="checkbox"] {
@@ -82,21 +92,6 @@ input[type="checkbox"] {
   background-color: #fff;
   margin: 0;
 }
-`
-
-const StyledWrapper = styled.div`
-  width: 100%;
-  min-height: 100%;
-  overflow: hidden;
-  background-color: #383838;
-`
-
-const StyledContainer = styled.div`
-  max-width: 1920px;
-  height: 100vh;
-  margin: 0 auto;
-  position: relative;
-  background-color: #181818;
 `
 
 function App() {
@@ -129,12 +124,8 @@ function App() {
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
         <SkeletonTheme baseColor="#313131" highlightColor="#525252">
-          <GlobalStyle />
-          <StyledWrapper>
-            <StyledContainer>
+          <GlobalStyle theme={currentTheme}/>
               <AppRoutes/>
-            </StyledContainer>
-          </StyledWrapper>
         </SkeletonTheme>
     </ThemeContext.Provider>
   )
